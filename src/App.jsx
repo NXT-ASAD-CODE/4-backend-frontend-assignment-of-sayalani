@@ -1,8 +1,11 @@
 import React from 'react'
+import AlertBar from './components/AlertBar'
 
 function App() {
   return (
-    <div>App</div>
+    <div>
+      <AlertBar/>
+    </div>
   )
 }
 
