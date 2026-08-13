@@ -15,23 +15,26 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: "transparent",
+const Search = styled("div")(({ theme }) => ({
+    position: "relative",
+    borderRadius: "30px",
+    backgroundColor: "#f1f3f5",
+
     "&:hover": {
-        backgroundColor: "transparent",
+        backgroundColor: "#e9ecef",
     },
+
     marginRight: theme.spacing(2),
     marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
+    width: "100%",
+
+    [theme.breakpoints.up("sm")]: {
         marginLeft: theme.spacing(3),
-        width: 'auto',
+        width: "auto",
     },
 }));
-
 const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
@@ -134,7 +137,7 @@ export default function PrimarySearchAppBar() {
                     color="inherit"
                 >
                     <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
+                        <ShoppingCartIcon />
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
@@ -156,14 +159,22 @@ export default function PrimarySearchAppBar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static"
+            <AppBar
                 position="static"
                 sx={{
                     backgroundColor: "transparent",
                     boxShadow: "none",
                     color: "black",
                 }}>
-                <Toolbar>
+                <Toolbar
+                    sx={{
+                        minHeight: {
+                            xs: "60px",
+                            sm: "70px",
+                            md: "80px",
+                        },
+                    }}
+                >
                     <IconButton
                         size="large"
                         edge="start"
@@ -174,12 +185,12 @@ export default function PrimarySearchAppBar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography
-                        variant="h6"
+                        variant="h5"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{ display: { xs: 'none', sm: 'block' },fontWeight:"900" }}
                     >
-                        MUI
+                        SHOP.CO
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
@@ -203,7 +214,7 @@ export default function PrimarySearchAppBar() {
                             color="inherit"
                         >
                             <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
+                                <ShoppingCartIcon />
                             </Badge>
                         </IconButton>
                         <IconButton
