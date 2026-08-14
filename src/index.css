@@ -177,5 +177,6 @@ border-radius: 25px;
   }
   .vector2-image{
     position: absolute;
-    top: 400px;
+    top: 200px;
+    right: 50px;
   }
