@@ -93,6 +93,9 @@
   background-color: #F2F0F1;
   height: 100vh;
   display: flex;
+  background-image: url(../public/Rectangle\ 2.png);
+  background-position-x: 40px;
+  background-size: 1300px;
 }
 .Text-Section h1{
   color: black;
@@ -130,6 +133,7 @@ border-radius: 25px;
     width: 100%;
     margin-top: 10px;
     margin-left: 50px;
+    z-index: -2;
   }
  
   .stat {
@@ -163,4 +167,7 @@ border-radius: 25px;
     font-size: 16px;
     color: #7a7a7a;
     font-weight: 400;
+  }
+  .Image-Section img{
+    /* background-image: ; */
   }

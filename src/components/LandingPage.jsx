@@ -29,7 +29,9 @@ function LandingPage() {
                 </div>
             </div>
             <div className='Image-Section'>
-
+                <div className="person-image">
+                    {/* <img src="../public/Rectangle 2.png" alt="" /> */}
+                </div>
             </div>
         </div>
     )
