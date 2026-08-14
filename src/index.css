@@ -168,9 +168,6 @@ border-radius: 25px;
     color: #7a7a7a;
     font-weight: 400;
   }
-  .Image-Section img{
-    /* background-image: ; */
-  }
   .vector1-image{
     position: absolute;
     top: 400px;
@@ -180,3 +177,4 @@ border-radius: 25px;
     top: 200px;
     right: 50px;
   }
+  
