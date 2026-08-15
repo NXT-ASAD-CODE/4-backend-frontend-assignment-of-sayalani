@@ -179,4 +179,6 @@ border-radius: 25px;
   }
   .Slider{
     background-color: black;
+    height: 100px;
+    align-items: center;
   }
