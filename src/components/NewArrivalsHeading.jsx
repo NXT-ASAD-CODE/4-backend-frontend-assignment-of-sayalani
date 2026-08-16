@@ -1,9 +1,11 @@
 import React from 'react'
 
-function NewArrivalsHeading() {
+function Heading({title}) {
   return (
-    <div>NewArrivalsHeading</div>
+    <div className='Heading'>
+        <h1>{title}</h1>
+    </div>
   )
 }
 
-export default NewArrivalsHeading
+export default Heading;
