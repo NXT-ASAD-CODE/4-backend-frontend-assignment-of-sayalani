@@ -131,14 +131,14 @@ border-radius: 25px;
     border-radius: 4px;
     max-width: 600px;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 50px;
     z-index: -2;
   }
  
   .stat {
     flex: 1;
-    padding: 40px 30px;
+    padding: 20px 30px;
     position: relative;
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
@@ -160,7 +160,7 @@ border-radius: 25px;
     color: #111;
     line-height: 1;
     margin-bottom: 12px;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.5px; 
   }
  
   .stat-label {
@@ -184,5 +184,13 @@ border-radius: 25px;
     align-items: center;
     gap: 20px;
     justify-content: space-around;
+    /* z-index: 1; */
+  }
+  .Heading-props{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    font-size: 30px;
+    color: black;
   }
 

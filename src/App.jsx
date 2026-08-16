@@ -4,6 +4,7 @@ import PrimarySearchAppBar from './components/Navbar'
 import LandingPage from './components/LandingPage'
 import Slider from './components/Slider'
 import NewArrivalsHeading from './components/NewArrivalsHeading'
+import Heading from './components/NewArrivalsHeading'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <LandingPage/>
       <Slider/>
       <NewArrivalsHeading/>
+      <Heading title={"New Arrivals"}/>
     </div>
   )
 }
