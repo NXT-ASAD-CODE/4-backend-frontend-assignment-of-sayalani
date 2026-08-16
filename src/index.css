@@ -131,7 +131,7 @@ border-radius: 25px;
     border-radius: 4px;
     max-width: 600px;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-left: 50px;
     z-index: -2;
   }
@@ -189,8 +189,25 @@ border-radius: 25px;
   .Heading-props{
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 60px;
     font-size: 30px;
     color: black;
   }
 
+  .Dynamic-Products{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .card1 img{
+    border-radius: 10px;
+    width: 250px;
+    height: 250px;
+  }
+  .card1 .card-text{
+    color: black;
+  }
+  .flex{
+    display: flex;
+    justify-content: space-around;
+  }
