@@ -29,67 +29,70 @@
     font-size: 16px;
   }
 }
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 .AlertBar {
-    position: relative;
-    width: 100%;
-    min-height: 40px;
-    padding: 8px 70px 8px 20px;
-    background-color: #000;
-    color: #fff;
+  position: relative;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 70px 8px 20px;
+  background-color: #000;
+  color: #fff;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    text-align: center;
+  text-align: center;
 }
 
 .AlertBar p {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.5;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .AlertBar span {
-    margin-left: 5px;
-    font-weight: 600;
-    text-decoration: underline;
-    cursor: pointer;
+  margin-left: 5px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* Mobile */
 @media (max-width: 600px) {
-    .AlertBar {
-        min-height: 45px;
-        padding: 8px 45px 8px 15px;
-    }
+  .AlertBar {
+    min-height: 45px;
+    padding: 8px 45px 8px 15px;
+  }
 
-    .AlertBar p {
-        font-size: 12px;
-    }
+  .AlertBar p {
+    font-size: 12px;
+  }
 
-    .AlertBar span {
-        margin-left: 3px;
-    }
+  .AlertBar span {
+    margin-left: 3px;
+  }
 }
 
 /* Very small screens */
 @media (max-width: 400px) {
-    .AlertBar {
-        padding-left: 10px;
-        padding-right: 40px;
-    }
+  .AlertBar {
+    padding-left: 10px;
+    padding-right: 40px;
+  }
 
-    .AlertBar p {
-        font-size: 11px;
-    }
+  .AlertBar p {
+    font-size: 11px;
+  }
 }
-.LandingPage{
+
+.LandingPage {
   background-color: #F2F0F1;
   height: 100vh;
   display: flex;
@@ -97,130 +100,155 @@
   background-position-x: 10px;
   background-size: 1300px;
 }
-.Text-Section h1{
+
+.Text-Section h1 {
   color: black;
   font-size: 60px;
   margin-top: 100px;
   margin-left: 70px;
   font-weight: 900;
 }
-.Paragraph p{
+
+.Paragraph p {
   font-size: 16px;
   margin-top: 30px;
   margin-left: 70px;
 }
-.ShopNow-btn{
-margin-top: 30px;
-}
-.ShopNow-btn a{
-text-decoration: none;
-color: white;
-background-color: black;
-padding-right:55px;
-padding-left: 55px;
-padding-top:12px;
-padding-bottom:12px;
-margin-left: 70px;
-font-size: 16px;
-border-radius: 25px;
-}
-.stats-bar {
-    background: #F2F0F1;
-    display: flex;
-    align-items: stretch;
-    border-radius: 4px;
-    max-width: 600px;
-    width: 100%;
-    margin-top: 40px;
-    margin-left: 50px;
-    z-index: -2;
-  }
- 
-  .stat {
-    flex: 1;
-    padding: 20px 30px;
-    position: relative;
-    text-align: left;
-    font-family: Arial, Helvetica, sans-serif;
-  }
- 
-  .stat:not(:first-child)::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 20%;
-    bottom: 20%;
-    width: 1px;
-    background: #d8d5d2;
-  }
- 
-  .stat-number {
-    font-size: 42px;
-    /* font-weight: 800; */
-    color: #111;
-    line-height: 1;
-    margin-bottom: 12px;
-    letter-spacing: -0.5px; 
-  }
- 
-  .stat-label {
-    font-size: 16px;
-    color: #7a7a7a;
-    font-weight: 400;
-  }
-  .vector1-image{
-    position: absolute;
-    top: 400px;
-  }
-  .vector2-image{
-    position: absolute;
-    top: 200px;
-    right: 50px;
-  }
-  .Slider{
-    background-color: black;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    justify-content: space-around;
-    /* z-index: 1; */
-  }
-  .Heading-props{
-    display: flex;
-    justify-content: center;
-    margin-top: 60px;
-    font-size: 30px;
-    color: black;
-  }
 
-  .Dynamic-Products{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-  }
-  .card1 img{
-    border-radius: 10px;
-    width: 250px;
-    height: 250px;
-  }
-  .card1 .card-text{
-    color: black;
-  }
-  .flex{
-    display: flex;
-    justify-content: space-around;
-  }
-  .DynamicButton{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-  }
-  .DynamicButton a{
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
-    border: 2px solid lightgray;
-    padding: 10px 60px;
-    border-radius: 50px;
-  }
+.ShopNow-btn {
+  margin-top: 30px;
+}
+
+.ShopNow-btn a {
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  padding-right: 55px;
+  padding-left: 55px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-left: 70px;
+  font-size: 16px;
+  border-radius: 25px;
+}
+
+.stats-bar {
+  background: #F2F0F1;
+  display: flex;
+  align-items: stretch;
+  border-radius: 4px;
+  max-width: 600px;
+  width: 100%;
+  margin-top: 40px;
+  margin-left: 50px;
+  z-index: -2;
+}
+
+.stat {
+  flex: 1;
+  padding: 20px 30px;
+  position: relative;
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.stat:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 1px;
+  background: #d8d5d2;
+}
+
+.stat-number {
+  font-size: 42px;
+  /* font-weight: 800; */
+  color: #111;
+  line-height: 1;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.stat-label {
+  font-size: 16px;
+  color: #7a7a7a;
+  font-weight: 400;
+}
+
+.vector1-image {
+  position: absolute;
+  top: 400px;
+}
+
+.vector2-image {
+  position: absolute;
+  top: 200px;
+  right: 50px;
+}
+
+.Slider {
+  background-color: black;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-around;
+  /* z-index: 1; */
+}
+
+.Heading-props {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  font-size: 30px;
+  color: black;
+}
+
+.Dynamic-Products {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.card1 img {
+  border-radius: 10px;
+  width: 250px;
+  height: 250px;
+}
+
+.card1 .card-text {
+  color: black;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+
+.DynamicButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.DynamicButton a {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  border: 2px solid lightgray;
+  padding: 10px 60px;
+  border-radius: 50px;
+}
+
+.section-divider {
+  border: none;
+  /* Removes the default 3D shaded browser border */
+  height: 2px;
+  /* Sets the exact thickness of the line */
+  background-color: #d3d3d3;
+  /* Applies a standard light gray color */
+  margin: 2rem 0;
+  /* Adds vertical spacing above and below the line */
+}
