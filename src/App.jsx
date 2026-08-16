@@ -5,6 +5,7 @@ import LandingPage from './components/LandingPage'
 import Slider from './components/Slider'
 import Heading from './components/NewArrivalsHeading'
 import DynamicProducts from './components/DynamicProducts'
+import DynamicButton from './components/DynamicButton'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <DynamicProducts src={"../public/image 9.png"} cardtext={"Checkered Shirt"} money={"RS : $180"}/>
       <DynamicProducts src={"../public/image 10.png"} cardtext={"Sleeve Striped T-shirt"} money={"RS : $130"}/>
       </div>
+      <DynamicButton btntext={"View All"}/>
     </div>
   )
 }
