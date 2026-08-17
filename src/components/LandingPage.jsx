@@ -33,10 +33,10 @@ function LandingPage() {
                     {/* <img src="../public/Rectangle 2.png" alt="" /> */}
                 </div>
                 <div className="vector1-image">
-                    <img src="../public/Vector.png" alt="" />
+                    <img src="./Vector.png" alt="" />
                 </div>
                 <div className="vector2-image">
-                    <img src="../public/Vector (1).png" alt="" />
+                    <img src="./Vector (1).png" alt="" />
                 </div>
             </div>
         </div>
