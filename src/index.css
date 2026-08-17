@@ -285,7 +285,7 @@
 }
 
 
-.panel h1 {
+.panel .panel-heading {
   margin: 0 0 26px 8px;
   font-size: clamp(24px, 3.4vw, 34px);
   font-weight: 800;
@@ -294,6 +294,7 @@
   text-transform: uppercase;
   display: flex;
   justify-content: center;
+  /* position: relative; */
 }
 
 /* ---- CSS Grid: 8 tracks so each row can split 3/5 or 5/3 ---- */
@@ -347,5 +348,11 @@
   }
 }
 .Image-Text{
-  z-index: 1;
+  /* z-index: 1;  */
+  position: absolute;
+  margin-left: 30px;
+  margin-top: 30px;
+  color: black;
+  
+
 }
