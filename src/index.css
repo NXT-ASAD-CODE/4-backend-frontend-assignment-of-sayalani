@@ -35,6 +35,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body{
+  overflow-x: hidden;
+}
 
 .AlertBar {
   position: relative;
@@ -198,6 +201,48 @@
   /* z-index: 1; */
 }
 
+/* Hides scrollbars and cuts off extra images */
+.slider-container {
+  /* overflow: hidden; */
+  /* width: 100%; */
+  height: 100px;
+  background: black;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Flexbox aligns elements horizontally */
+.slider-track {
+  display: flex;
+  width: max-content;
+  animation: scrollSlider 15s linear infinite;
+}
+
+/* Pauses the slider on hover */
+.slider-track:hover {
+  animation-play-state: paused;
+}
+
+/* Individual slider item spacing */
+.slider-track img {
+  /* width: 150px; */
+  height: 50px;
+  margin: 0 30px;
+}
+
+/* The loop animation moving left by 50% (the length of one full set) */
+@keyframes scrollSlider {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .Heading-props {
   display: flex;
   justify-content: center;
@@ -347,12 +392,13 @@
     gap: 10px;
   }
 }
-.Image-Text{
+
+.Image-Text {
   /* z-index: 1;  */
   position: absolute;
   margin-left: 30px;
   margin-top: 30px;
   color: black;
-  
+
 
 }
