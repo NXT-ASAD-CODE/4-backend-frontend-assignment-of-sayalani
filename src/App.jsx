@@ -7,6 +7,7 @@ import Heading from './components/NewArrivalsHeading'
 import DynamicProducts from './components/DynamicProducts'
 import DynamicButton from './components/DynamicButton'
 import HorizontalLine from './components/HorizontalLine'
+import BrowseStyle from './components/BrowseStyle'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <DynamicProducts src={"../public/image 10 (1).png"} cardtext={"Faded Skinny Jeans"} money={"RS : $210"} />
       </div>
       <DynamicButton btntext={"View All"} />
+      <BrowseStyle/>
     </div>
   )
 }
