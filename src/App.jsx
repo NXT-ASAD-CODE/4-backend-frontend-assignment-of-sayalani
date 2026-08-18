@@ -8,6 +8,7 @@ import DynamicProducts from './components/DynamicProducts'
 import DynamicButton from './components/DynamicButton'
 import HorizontalLine from './components/HorizontalLine'
 import BrowseStyle from './components/BrowseStyle'
+import HappyCustomers from './components/HappyCustomers'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       </div>
       <DynamicButton btntext={"View All"} />
       <BrowseStyle/>
+      <HappyCustomers/>
     </div>
   )
 }
