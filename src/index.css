@@ -493,6 +493,9 @@ body{
   margin-bottom: 20px;
   border: none;
 }
+.EmailWithBtn input::placeholder{
+  color: lightgray;
+}
 .EmailWithBtn a{
   text-decoration: none;
   color: black;
@@ -500,4 +503,10 @@ body{
   padding: 10px 70px;
   border-radius: 50px;
   font-size: 16px;
+}
+.icon{
+  position: absolute;
+  color: lightgray;
+  margin-left: 10px;
+  margin-top: 7px;
 }
