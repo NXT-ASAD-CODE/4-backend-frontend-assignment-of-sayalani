@@ -406,7 +406,7 @@ body{
 .Happy-Customers-Section {
   margin-top: 50px;
   padding: 64px 24px;
-  background: #faf9f7;
+  /* background: #faf9f7; */
   overflow: hidden;              /* hides the part of the track sliding off-screen */
 }
 
@@ -471,4 +471,33 @@ body{
 /* ---------- Responsive ---------- */
 @media (max-width: 640px) {
   .review1 { width: 260px; height: auto; }
+}
+.LatestOffersPage{
+  background-color: black;
+  color: white;
+  height: 160px;
+  width: 89%;
+  margin: 0 auto;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.EmailWithBtn input{
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  padding: 12px 60px;
+  border-radius: 50px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border: none;
+}
+.EmailWithBtn a{
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  padding: 10px 70px;
+  border-radius: 50px;
+  font-size: 16px;
 }

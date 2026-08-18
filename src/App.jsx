@@ -9,6 +9,7 @@ import DynamicButton from './components/DynamicButton'
 import HorizontalLine from './components/HorizontalLine'
 import BrowseStyle from './components/BrowseStyle'
 import HappyCustomers from './components/HappyCustomers'
+import LatestOffers from './components/LatestOffers'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
       <DynamicButton btntext={"View All"} />
       <BrowseStyle/>
       <HappyCustomers/>
+      <LatestOffers/>
     </div>
   )
 }
