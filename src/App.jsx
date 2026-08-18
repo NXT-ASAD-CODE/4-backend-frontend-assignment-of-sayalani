@@ -10,6 +10,7 @@ import HorizontalLine from './components/HorizontalLine'
 import BrowseStyle from './components/BrowseStyle'
 import HappyCustomers from './components/HappyCustomers'
 import LatestOffers from './components/LatestOffers'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
       <BrowseStyle/>
       <HappyCustomers/>
       <LatestOffers/>
+      <Footer/>
     </div>
   )
 }
