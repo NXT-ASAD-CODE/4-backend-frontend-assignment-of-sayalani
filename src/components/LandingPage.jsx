@@ -30,7 +30,7 @@ function LandingPage() {
             </div>
             <div className='Image-Section'>
                 <div className="person-image">
-                    <img src="./Rectangle_2-removebg-preview.png" alt="Fashion model" />
+                    <img src="./Rectangle 2 (1).png" alt="Fashion model" />
                 </div>
                 <div className="vector1-image">
                     <img src="./Vector.png" alt="" />
