@@ -13,24 +13,24 @@ function LandingPage() {
                 <div className="ShopNow-btn">
                     <a href="">Shop Now</a>
                 </div>
-                <div class="stats-bar">
-                    <div class="stat">
-                        <div class="stat-number">200+</div>
-                        <div class="stat-label">International Brands</div>
+                <div className="stats-bar">
+                    <div className="stat">
+                        <div className="stat-number">200+</div>
+                        <div className="stat-label">International Brands</div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number">2000+</div>
-                        <div class="stat-label">High-Quality Products</div>
+                    <div className="stat">
+                        <div className="stat-number">2000+</div>
+                        <div className="stat-label">High-Quality Products</div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number">30000+</div>
-                        <div class="stat-label">Happy Customers</div>
+                    <div className="stat">
+                        <div className="stat-number">30000+</div>
+                        <div className="stat-label">Happy Customers</div>
                     </div>
                 </div>
             </div>
             <div className='Image-Section'>
                 <div className="person-image">
-                    {/* <img src="../public/Rectangle 2.png" alt="" /> */}
+                    <img src="./Rectangle_2-removebg-preview.png" alt="Fashion model" />
                 </div>
                 <div className="vector1-image">
                     <img src="./Vector.png" alt="" />
