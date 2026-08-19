@@ -5,7 +5,7 @@ function LandingPage() {
         <div className='LandingPage'>
             <div className='Text-Section'>
                 <div className="Heading">
-                    <h1>FIND CLOTHES <br /> <br /> THAT MATCHES <br /> <br /> YOUR STYLE</h1>
+                    <h1>FIND CLOTHES <br />  THAT MATCHES <br />  YOUR STYLE</h1>
                 </div>
                 <div className="Paragraph">
                     <p>Browse through our diverse range of meticulously crafted garments, designed <br /> to bring out your individuality and cater to your sense of style.</p>
