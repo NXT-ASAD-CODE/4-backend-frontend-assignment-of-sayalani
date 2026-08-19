@@ -211,7 +211,11 @@ body{
 .vector2-image {
   position: absolute;
   z-index: 1;
-  width: min(22vw, 170px);
+  width: clamp(70px, 16vw, 170px);
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .vector1-image {
@@ -276,7 +280,7 @@ body{
 
   .vector1-image,
   .vector2-image {
-    width: 90px;
+    width: clamp(52px, 20vw, 90px);
   }
 
   .vector1-image {
