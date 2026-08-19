@@ -35,8 +35,13 @@
   padding: 0;
   box-sizing: border-box;
 }
-body{
+
+html, body {
   overflow-x: hidden;
+}
+
+body {
+  max-width: 100vw;
 }
 
 .AlertBar {
@@ -102,25 +107,29 @@ body{
   gap: 28px;
   padding: 0 4vw 3.5rem;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 .Text-Section {
   flex: 1 1 520px;
+  max-width: 100%;
 }
 
 .Text-Section h1 {
   color: black;
   font-size: clamp(2.8rem, 4.8vw, 4.2rem);
   margin-top: 100px;
-  margin-left: 70px;
+  margin-left: clamp(0px, 4vw, 70px);
   font-weight: 900;
   line-height: 0.96;
+  max-width: 100%;
 }
 
 .Paragraph p {
   font-size: 16px;
   margin-top: 30px;
-  margin-left: 70px;
+  margin-left: clamp(0px, 4vw, 70px);
   line-height: 1.6;
   max-width: 620px;
 }
@@ -135,7 +144,7 @@ body{
   color: white;
   background-color: black;
   padding: 12px 55px;
-  margin-left: 70px;
+  margin-left: clamp(0px, 4vw, 70px);
   font-size: 16px;
   border-radius: 25px;
 }
@@ -148,7 +157,7 @@ body{
   max-width: 600px;
   width: 100%;
   margin-top: 40px;
-  margin-left: 50px;
+  margin-left: clamp(0px, 4vw, 50px);
   z-index: 2;
 }
 
@@ -192,12 +201,15 @@ body{
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
 }
 
 .person-image {
   position: relative;
   z-index: 2;
   width: min(100%, 520px);
+  max-width: 100%;
 }
 
 .person-image img {
