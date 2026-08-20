@@ -34,7 +34,7 @@ function ProductPage() {
           <h1>{product.name}</h1>
           <p className="product-price">RS : ${product.price}</p>
           <p className="product-description">{product.description}</p>
-
+          <p>slect colors</p>
           <div className="product-actions">
             <button className="add-to-cart-btn">Add to Cart</button>
             <Link to="/" className="back-home-btn">Continue Shopping</Link>
