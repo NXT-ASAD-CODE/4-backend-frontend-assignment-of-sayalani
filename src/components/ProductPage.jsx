@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getProductById } from '../data/products.js'
 import Heading from './NewArrivalsHeading.jsx'
 import DynamicProducts from './DynamicProducts.jsx'
 import { products } from '../data/products'
 
-
 function ProductPage() {
   const { id } = useParams()
   const product = getProductById(id)
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [id])
 
   if (!product) {
     return (
@@ -40,7 +43,7 @@ function ProductPage() {
       </div>
       <Heading title={"YOU MIGHT ALSO LIKE"} />
             <div className="flex">
-        {products.slice(0, 4).map((product) => (
+        {products.slice(8).map((product) => (
           <DynamicProducts
             key={product.id}
             id={product.id}

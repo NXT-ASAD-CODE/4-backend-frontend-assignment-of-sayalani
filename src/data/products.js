@@ -62,7 +62,40 @@ export const products = [
     image: '/image%2010%20(1).png',
     category: 'Top Selling',
     description: 'A faded denim look with a sleek fit that pairs effortlessly with layering.'
+  },
+  {
+    id: 'polo-with-contrast-trims',
+    name: 'Polo With Contrast Trims',
+    price: 212,
+    image: '/image%207%20(2).png',
+    category: 'You Might Also Like',
+    description: 'A polished polo with contrast trims and a premium finish for elevated everyday styling.'
+  },
+  {
+    id: 'gradient-graphic-t-shirt',
+    name: 'Gradient Graphic T-shirt',
+    price: 145,
+    image: '/image%208%20(2).png',
+    category: 'You Might Also Like',
+    description: 'Bold gradient artwork brings energy to this soft cotton tee with a relaxed, street-ready fit.'
+  },
+  {
+    id: 'polo-with-tipping-details',
+    name: 'Polo With Tipping Details',
+    price: 180,
+    image: '/image%209%20(2).png',
+    category: 'You Might Also Like',
+    description: 'Clean collar lines and subtle tipping details make this polo versatile from casual to smart-casual.'
+  },
+  {
+    id: 'black-stripted-t-shirt',
+    name: 'Black Stripted T-shirt',
+    price: 212,
+    image: '/image%2010%20(2).png',
+    category: 'You Might Also Like',
+    description: 'Minimal black stripes create a sleek, modern look while the soft fabric keeps it easy to wear daily.'
   }
+  
 ]
 
 export const getProductById = (id) => products.find((product) => product.id === id)
