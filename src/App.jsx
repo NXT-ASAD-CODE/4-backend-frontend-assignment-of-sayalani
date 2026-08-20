@@ -1,6 +1,5 @@
 import React from 'react'
-import AlertBar from './components/AlertBar'
-import PrimarySearchAppBar from './components/Navbar'
+import PageLayout from './components/PageLayout'
 import LandingPage from './components/LandingPage'
 import Slider from './components/Slider'
 import Heading from './components/NewArrivalsHeading'
@@ -9,14 +8,10 @@ import DynamicButton from './components/DynamicButton'
 import HorizontalLine from './components/HorizontalLine'
 import BrowseStyle from './components/BrowseStyle'
 import HappyCustomers from './components/HappyCustomers'
-import LatestOffers from './components/LatestOffers'
-import Footer from './components/Footer'
 
 function App() {
   return (
-    <div>
-      <AlertBar />
-      <PrimarySearchAppBar />
+    <PageLayout>
       <LandingPage />
       <Slider />
       <Heading title={"New Arrivals"} />
@@ -38,9 +33,7 @@ function App() {
       <DynamicButton btntext={"View All"} />
       <BrowseStyle/>
       <HappyCustomers/>
-      <LatestOffers/>
-      <Footer/>
-    </div>
+    </PageLayout>
   )
 }
 
