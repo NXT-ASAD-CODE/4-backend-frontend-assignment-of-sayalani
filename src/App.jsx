@@ -33,7 +33,7 @@ function HomePage() {
       <HorizontalLine />
       <Heading title={"Top Selling"} />
       <div className="flex">
-        {products.slice(4).map((product) => (
+        {products.slice(4,8).map((product) => (
           <DynamicProducts
             key={product.id}
             id={product.id}
