@@ -188,8 +188,19 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                     <Typography
                         variant="h5"
                         noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' },fontWeight:"900" }}
+                        component="button"
+                        onClick={() => navigate('/')}
+                        sx={{
+                            display: { xs: 'none', sm: 'block' },
+                            fontWeight: "900",
+                            background: 'transparent',
+                            border: 'none',
+                            padding: 0,
+                            cursor: 'pointer',
+                            color: 'black',
+                            fontFamily: 'inherit',
+                            textAlign: 'left'
+                        }}
                     >
                         SHOP.CO
                     </Typography>

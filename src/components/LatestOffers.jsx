@@ -6,7 +6,7 @@ function LatestOffers() {
   return (
     <div className='LatestOffersPage'>
         <div className="LatestOffersHeading">
-            <h1>STAY UP TO DATE ABOUT <br /> <br /> OUR LATEST OFFERS</h1>
+            <h1>STAY UP TO DATE ABOUT <br /> OUR LATEST OFFERS</h1>
         </div>
         <div className='EmailWithBtn'>
             <div>

@@ -97,8 +97,22 @@ function CartPage({ cartItems = [], onUpdateQuantity, onRemove }) {
           ))}
         </div>
 
-        <div style={{ marginTop: '30px', padding: '24px', borderRadius: '14px', background: '#f7f7f7' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+        <div
+          className="cart-summary-box"
+          style={{
+            marginTop: '30px',
+            padding: '24px',
+            borderRadius: '14px',
+            background: '#f7f7f7',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '12px',
+            flexWrap: 'wrap'
+          }}
+        >
+          <div className="cart-summary-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', width: '100%', flexDirection: 'row' }}>
             <h3 style={{ margin: 0 }}>Subtotal</h3>
             <h3 style={{ margin: 0 }}>RS : ${subtotal.toFixed(2)}</h3>
           </div>

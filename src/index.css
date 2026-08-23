@@ -702,6 +702,17 @@ body {
 }
 
 @media (max-width: 640px) {
+  .cart-summary-box {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .cart-summary-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
   .flex {
     padding: 0 16px;
   }
@@ -999,6 +1010,9 @@ body {
   justify-content: space-around;
   gap: 20px;
   padding: 22px 20px;
+}
+.LatestOffersHeading{
+  line-height: 40px;
 }
 
 .EmailWithBtn {
