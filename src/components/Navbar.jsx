@@ -13,9 +13,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -59,7 +59,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({ cartCount = 0 }) {
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -130,17 +131,17 @@ export default function PrimarySearchAppBar() {
                 </IconButton>
                 <p>Messages</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => navigate('/cart')}>
                 <IconButton
                     size="large"
-                    aria-label="show 17 new notifications"
+                    aria-label="go to cart"
                     color="inherit"
                 >
-                    <Badge badgeContent={17} color="error">
+                    <Badge badgeContent={cartCount} color="error">
                         <ShoppingCartIcon />
                     </Badge>
                 </IconButton>
-                <p>Notifications</p>
+                <p>Cart</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
@@ -210,10 +211,11 @@ export default function PrimarySearchAppBar() {
                         </IconButton>
                         <IconButton
                             size="large"
-                            aria-label="show 17 new notifications"
+                            aria-label="go to cart"
                             color="inherit"
+                            onClick={() => navigate('/cart')}
                         >
-                            <Badge badgeContent={17} color="error">
+                            <Badge badgeContent={cartCount} color="error">
                                 <ShoppingCartIcon />
                             </Badge>
                         </IconButton>

@@ -4,11 +4,11 @@ import PrimarySearchAppBar from './Navbar'
 import LatestOffers from './LatestOffers'
 import Footer from './Footer'
 
-function PageLayout({ children }) {
+function PageLayout({ children, cartCount = 0 }) {
   return (
     <>
       <AlertBar />
-      <PrimarySearchAppBar />
+      <PrimarySearchAppBar cartCount={cartCount} />
       {children}
       <LatestOffers />
       <Footer />

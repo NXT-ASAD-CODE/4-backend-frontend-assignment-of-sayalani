@@ -12,7 +12,7 @@ const colorOptions = [
 
 const sizeOptions = ['Small', 'Medium', 'Large', 'X-Large']
 
-function ProductPage() {
+function ProductPage({ onAddToCart }) {
   const { id } = useParams()
   const [product, setProduct] = useState(null)
   const [relatedProducts, setRelatedProducts] = useState([])
@@ -119,7 +119,17 @@ function ProductPage() {
           </div>
 
           <div className="product-actions">
-            <button className="add-to-cart-btn">Add to Cart</button>
+            <button
+              className="add-to-cart-btn"
+              onClick={() => onAddToCart && onAddToCart({
+                ...product,
+                quantity,
+                selectedColor,
+                selectedSize
+              })}
+            >
+              Add to Cart
+            </button>
             <Link to="/" className="back-home-btn">Continue Shopping</Link>
           </div>
         </div>
