@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import PageLayout from './components/PageLayout'
 import LandingPage from './components/LandingPage'
@@ -10,16 +10,31 @@ import HorizontalLine from './components/HorizontalLine'
 import BrowseStyle from './components/BrowseStyle'
 import HappyCustomers from './components/HappyCustomers'
 import ProductPage from './components/ProductPage'
-import { products } from './data/products'
+import { getProducts } from './api/products'
 
 function HomePage() {
+  const [newArrivals, setNewArrivals] = useState([])
+  const [topSelling, setTopSelling] = useState([])
+
+  useEffect(() => {
+    Promise.all([
+      getProducts('New Arrivals'),
+      getProducts('Top Selling')
+    ])
+      .then(([newItems, topItems]) => {
+        setNewArrivals(newItems)
+        setTopSelling(topItems)
+      })
+      .catch((error) => console.error('Failed to load products:', error))
+  }, [])
+
   return (
     <PageLayout>
       <LandingPage />
       <Slider />
       <Heading title={"New Arrivals"} />
       <div className="flex">
-        {products.slice(0, 4).map((product) => (
+        {newArrivals.slice(0, 4).map((product) => (
           <DynamicProducts
             key={product.id}
             id={product.id}
@@ -33,7 +48,7 @@ function HomePage() {
       <HorizontalLine />
       <Heading title={"Top Selling"} />
       <div className="flex">
-        {products.slice(4,8).map((product) => (
+        {topSelling.map((product) => (
           <DynamicProducts
             key={product.id}
             id={product.id}

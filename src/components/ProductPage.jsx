@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getProductById } from '../data/products.js'
 import Heading from './NewArrivalsHeading.jsx'
 import DynamicProducts from './DynamicProducts.jsx'
-import { products } from '../data/products'
+import { getProductById, getProducts } from '../api/products'
 
 const colorOptions = [
   { name: 'Black', value: '#111111' },
@@ -13,11 +12,22 @@ const colorOptions = [
 
 function ProductPage() {
   const { id } = useParams()
-  const product = getProductById(id)
+  const [product, setProduct] = useState(null)
+  const [relatedProducts, setRelatedProducts] = useState([])
   const [selectedColor, setSelectedColor] = useState(colorOptions[0].name)
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [id])
+
+  useEffect(() => {
+    getProductById(id)
+      .then((data) => setProduct(data))
+      .catch(() => setProduct(null))
+
+    getProducts('You Might Also Like')
+      .then((data) => setRelatedProducts(data))
+      .catch((error) => console.error('Failed to load related products:', error))
   }, [id])
 
   if (!product) {
@@ -70,8 +80,8 @@ function ProductPage() {
         </div>
       </div>
       <Heading title={"YOU MIGHT ALSO LIKE"} />
-            <div className="flex">
-        {products.slice(8).map((product) => (
+      <div className="flex">
+        {relatedProducts.map((product) => (
           <DynamicProducts
             key={product.id}
             id={product.id}
@@ -82,7 +92,6 @@ function ProductPage() {
         ))}
       </div>
     </div>
-
   )
 }
 
