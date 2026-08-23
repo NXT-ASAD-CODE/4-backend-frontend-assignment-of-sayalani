@@ -18,6 +18,7 @@ function ProductPage() {
   const [relatedProducts, setRelatedProducts] = useState([])
   const [selectedColor, setSelectedColor] = useState(colorOptions[0].name)
   const [selectedSize, setSelectedSize] = useState('Medium')
+  const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
@@ -91,6 +92,29 @@ function ProductPage() {
                   {size}
                 </button>
               ))}
+            </div>
+          </div>
+
+          <div className="quantity-selector">
+            <p className="quantity-label">Quantity</p>
+            <div className="quantity-box">
+              <button
+                type="button"
+                className="quantity-btn"
+                onClick={() => setQuantity((value) => Math.max(1, value - 1))}
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+              <span className="quantity-value">{quantity}</span>
+              <button
+                type="button"
+                className="quantity-btn"
+                onClick={() => setQuantity((value) => value + 1)}
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
             </div>
           </div>
 
