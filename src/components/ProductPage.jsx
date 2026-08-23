@@ -10,11 +10,14 @@ const colorOptions = [
   { name: 'Sand', value: '#d8c4a1' }
 ]
 
+const sizeOptions = ['Small', 'Medium', 'Large', 'X-Large']
+
 function ProductPage() {
   const { id } = useParams()
   const [product, setProduct] = useState(null)
   const [relatedProducts, setRelatedProducts] = useState([])
   const [selectedColor, setSelectedColor] = useState(colorOptions[0].name)
+  const [selectedSize, setSelectedSize] = useState('Medium')
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
@@ -68,6 +71,24 @@ function ProductPage() {
                   style={{ backgroundColor: color.value }}
                 >
                   {selectedColor === color.name && <span className="color-check">✓</span>}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <hr className="product-divider" />
+
+          <div className="size-selector">
+            <p className="size-label">Choose Size</p>
+            <div className="size-options">
+              {sizeOptions.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  className={`size-option ${selectedSize === size ? 'selected' : ''}`}
+                  onClick={() => setSelectedSize(size)}
+                >
+                  {size}
                 </button>
               ))}
             </div>

@@ -532,6 +532,41 @@ body {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
+.size-selector {
+  margin-bottom: 24px;
+}
+
+.size-label {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #a0a0a0;
+}
+
+.size-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.size-option {
+  border: 1px solid #d9d9d9;
+  background: #fff;
+  color: #111;
+  border-radius: 999px;
+  padding: 10px 18px;
+  min-width: 92px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.size-option.selected {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
 .product-actions {
   display: flex;
   flex-wrap: wrap;
