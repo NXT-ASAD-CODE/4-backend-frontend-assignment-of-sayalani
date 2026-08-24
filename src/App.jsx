@@ -59,7 +59,7 @@ function HomePage({ cartCount }) {
       </div>
       <DynamicButton btntext={"View All"} />
       <HorizontalLine />
-      <Heading title={"Top Selling"} />
+      <Heading title={"Top Selling"} id="top-selling" />
       <div className="flex">
         {topSelling.map((product) => (
           <DynamicProducts

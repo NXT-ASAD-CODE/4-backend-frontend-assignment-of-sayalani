@@ -221,6 +221,44 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                     >
                         Category
                     </Typography>
+                    <Typography
+                        variant="body1"
+                        onClick={() => {
+                            navigate('/');
+                            setTimeout(() => {
+                                document.getElementById('new-arrivals')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 100);
+                        }}
+                        sx={{
+                            marginLeft: 2,
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            color: '#111',
+                            display: { xs: 'none', md: 'block' },
+                            whiteSpace: 'nowrap'
+                        }}
+                    >
+                        New Arrivals
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        onClick={() => {
+                            navigate('/');
+                            setTimeout(() => {
+                                document.getElementById('top-selling')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 100);
+                        }}
+                        sx={{
+                            marginLeft: 2,
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            color: '#111',
+                            display: { xs: 'none', md: 'block' },
+                            whiteSpace: 'nowrap'
+                        }}
+                    >
+                        Top Selling
+                    </Typography>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
