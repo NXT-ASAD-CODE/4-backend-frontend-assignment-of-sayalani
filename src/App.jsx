@@ -44,7 +44,7 @@ function HomePage({ cartCount }) {
     <PageLayout cartCount={cartCount}>
       <LandingPage />
       <Slider />
-      <Heading title={"New Arrivals"} />
+      <Heading title={"New Arrivals"} id="new-arrivals" />
       <div className="flex">
         {newArrivals.slice(0, 4).map((product) => (
           <DynamicProducts

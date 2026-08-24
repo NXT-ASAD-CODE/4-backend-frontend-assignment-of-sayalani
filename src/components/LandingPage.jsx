@@ -1,6 +1,13 @@
 import React from 'react'
 
 function LandingPage() {
+    const handleShopNow = () => {
+        const section = document.getElementById('new-arrivals')
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    }
+
     return (
         <div className='LandingPage'>
             <div className='Text-Section'>
@@ -11,7 +18,7 @@ function LandingPage() {
                     <p>Browse through our diverse range of meticulously crafted garments, designed <br /> to bring out your individuality and cater to your sense of style.</p>
                 </div>
                 <div className="ShopNow-btn">
-                    <a href="">Shop Now</a>
+                    <button type="button" onClick={handleShopNow}>Shop Now</button>
                 </div>
                 <div className="stats-bar">
                     <div className="stat">

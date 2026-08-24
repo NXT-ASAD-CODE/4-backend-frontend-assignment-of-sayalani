@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Heading({title}) {
+function Heading({ title, id }) {
   return (
-    <div className='Heading-props'>
+    <div className='Heading-props' id={id}>
         <h1>{title}</h1>
     </div>
   )
