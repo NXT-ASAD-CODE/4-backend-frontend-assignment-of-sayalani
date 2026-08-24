@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-function DynamicButton({btntext}) {
+function DynamicButton({ btntext }) {
   return (
     <div className='DynamicButton'>
-        <a href="#">{btntext}</a>
+        <Link to="/category">{btntext}</Link>
     </div>
   )
 }
