@@ -134,6 +134,24 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             <MenuItem onClick={() => navigate('/category')}>
                 <p>Category</p>
             </MenuItem>
+            <MenuItem onClick={() => {
+                navigate('/');
+                setTimeout(() => {
+                    document.getElementById('new-arrivals')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+                handleMobileMenuClose();
+            }}>
+                <p>New Arrivals</p>
+            </MenuItem>
+            <MenuItem onClick={() => {
+                navigate('/');
+                setTimeout(() => {
+                    document.getElementById('top-selling')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+                handleMobileMenuClose();
+            }}>
+                <p>Top Selling</p>
+            </MenuItem>
             <MenuItem onClick={() => navigate('/cart')}>
                 <IconButton
                     size="large"
