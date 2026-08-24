@@ -131,6 +131,9 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 </IconButton>
                 <p>Messages</p>
             </MenuItem>
+            <MenuItem onClick={() => navigate('/category')}>
+                <p>Category</p>
+            </MenuItem>
             <MenuItem onClick={() => navigate('/cart')}>
                 <IconButton
                     size="large"
@@ -203,6 +206,20 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         }}
                     >
                         SHOP.CO
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        onClick={() => navigate('/category')}
+                        sx={{
+                            marginLeft: 2,
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            color: '#111',
+                            display: { xs: 'none', md: 'block' },
+                            whiteSpace: 'nowrap'
+                        }}
+                    >
+                        Category
                     </Typography>
                     <Search>
                         <SearchIconWrapper>

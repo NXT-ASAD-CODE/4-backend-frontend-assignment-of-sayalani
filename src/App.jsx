@@ -11,6 +11,7 @@ import BrowseStyle from './components/BrowseStyle'
 import HappyCustomers from './components/HappyCustomers'
 import ProductPage from './components/ProductPage'
 import CartPage from './components/CartPage'
+import CategoryPage from './components/CategoryPage'
 import { getProducts } from './api/products'
 
 const getStoredCart = () => {
@@ -161,6 +162,14 @@ function App() {
               onUpdateQuantity={updateCartQuantity}
               onRemove={removeFromCart}
             />
+          </PageLayout>
+        }
+      />
+      <Route
+        path="/category"
+        element={
+          <PageLayout cartCount={cartCount}>
+            <CategoryPage />
           </PageLayout>
         }
       />
