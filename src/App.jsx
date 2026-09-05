@@ -14,6 +14,7 @@ import CartPage from './components/CartPage'
 import CategoryPage from './components/CategoryPage'
 import DashboardPage from './components/DashboardPage'
 import { LanguageProvider } from './context/LanguageContext'
+import { useLanguage } from './context/LanguageContext'
 import { getProducts } from './api/products'
 
 const getStoredCart = () => {
@@ -28,6 +29,7 @@ const getStoredCart = () => {
 }
 
 function HomePage({ cartCount }) {
+  const { text } = useLanguage()
   const [newArrivals, setNewArrivals] = useState([])
   const [topSelling, setTopSelling] = useState([])
 
@@ -47,7 +49,7 @@ function HomePage({ cartCount }) {
     <PageLayout cartCount={cartCount}>
       <LandingPage />
       <Slider />
-      <Heading title={"New Arrivals"} id="new-arrivals" />
+      <Heading title={text.newArrivals} id="new-arrivals" />
       <div className="flex">
         {newArrivals.slice(0, 4).map((product) => (
           <DynamicProducts
@@ -61,7 +63,7 @@ function HomePage({ cartCount }) {
       </div>
       <DynamicButton btntext={"View All"} />
       <HorizontalLine />
-      <Heading title={"Top Selling"} id="top-selling" />
+      <Heading title={text.topSelling} id="top-selling" />
       <div className="flex">
         {topSelling.map((product) => (
           <DynamicProducts
