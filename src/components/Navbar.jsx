@@ -12,7 +12,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
+import TranslateIcon from '@mui/icons-material/Translate';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom';
@@ -62,9 +62,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [languageAnchorEl, setLanguageAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [selectedLanguage, setSelectedLanguage] = React.useState('English');
 
     const isMenuOpen = Boolean(anchorEl);
+    const isLanguageMenuOpen = Boolean(languageAnchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const handleProfileMenuOpen = (event) => {
@@ -84,7 +87,23 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleLanguageMenuOpen = (event) => {
+        setLanguageAnchorEl(event.currentTarget);
+    };
+
+    const handleLanguageMenuClose = () => {
+        setLanguageAnchorEl(null);
+    };
+
+    const handleLanguageSelect = (language) => {
+        setSelectedLanguage(language);
+        handleLanguageMenuClose();
+        handleMobileMenuClose();
+    };
+
     const menuId = 'primary-search-account-menu';
+    const languageMenuId = 'language-menu';
+    const languages = ['English', 'French', 'Romanian', 'Chinese'];
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
@@ -106,6 +125,23 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
         </Menu>
     );
 
+    const renderLanguageMenu = (
+        <Menu
+            anchorEl={languageAnchorEl}
+            id={languageMenuId}
+            open={isLanguageMenuOpen}
+            onClose={handleLanguageMenuClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+            {languages.map((language) => (
+                <MenuItem key={language} onClick={() => handleLanguageSelect(language)}>
+                    {language}
+                </MenuItem>
+            ))}
+        </Menu>
+    );
+
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu
@@ -123,14 +159,6 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
             <MenuItem onClick={() => navigate('/category')}>
                 <p>Category</p>
             </MenuItem>
@@ -169,6 +197,14 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                     </Badge>
                 </IconButton>
                 <p>Cart</p>
+            </MenuItem>
+            <MenuItem
+                onClick={handleLanguageMenuOpen}
+                aria-controls={isLanguageMenuOpen ? languageMenuId : undefined}
+                aria-haspopup="true"
+            >
+                <TranslateIcon sx={{ marginRight: 1 }} />
+                <p>{selectedLanguage}</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
@@ -308,10 +344,15 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
+                        <IconButton
+                            size="large"
+                            aria-label={`select language, current language ${selectedLanguage}`}
+                            aria-controls={isLanguageMenuOpen ? languageMenuId : undefined}
+                            aria-haspopup="true"
+                            onClick={handleLanguageMenuOpen}
+                            color="inherit"
+                        >
+                            <TranslateIcon />
                         </IconButton>
                         <IconButton
                             size="large"
@@ -351,6 +392,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
+            {renderLanguageMenu}
         </Box>
     );
 }
