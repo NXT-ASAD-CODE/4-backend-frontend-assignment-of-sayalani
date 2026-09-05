@@ -61,17 +61,71 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+const translations = {
+    English: {
+        category: 'Category',
+        dashboard: 'Dashboard',
+        newArrivals: 'New Arrivals',
+        topSelling: 'Top Selling',
+        cart: 'Cart',
+        profile: 'Profile',
+        myAccount: 'My account',
+        fullscreen: 'Fullscreen',
+        exitFullscreen: 'Exit Fullscreen',
+        search: 'Search',
+    },
+    French: {
+        category: 'Catégorie',
+        dashboard: 'Tableau de bord',
+        newArrivals: 'Nouveautés',
+        topSelling: 'Meilleures ventes',
+        cart: 'Panier',
+        profile: 'Profil',
+        myAccount: 'Mon compte',
+        fullscreen: 'Plein écran',
+        exitFullscreen: 'Quitter le plein écran',
+        search: 'Rechercher',
+    },
+    Romanian: {
+        category: 'Categorie',
+        dashboard: 'Tablou de bord',
+        newArrivals: 'Noutăți',
+        topSelling: 'Cele mai vândute',
+        cart: 'Coș',
+        profile: 'Profil',
+        myAccount: 'Contul meu',
+        fullscreen: 'Ecran complet',
+        exitFullscreen: 'Ieșire din ecran complet',
+        search: 'Caută',
+    },
+    Chinese: {
+        category: '分类',
+        dashboard: '仪表板',
+        newArrivals: '新品',
+        topSelling: '热销商品',
+        cart: '购物车',
+        profile: '个人资料',
+        myAccount: '我的账户',
+        fullscreen: '全屏',
+        exitFullscreen: '退出全屏',
+        search: '搜索',
+    },
+};
+
 export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [languageAnchorEl, setLanguageAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const [selectedLanguage, setSelectedLanguage] = React.useState('English');
+    const [selectedLanguage, setSelectedLanguage] = React.useState(() => {
+        return localStorage.getItem('selectedLanguage') || 'English';
+    });
     const [isFullscreen, setIsFullscreen] = React.useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
     const isLanguageMenuOpen = Boolean(languageAnchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const text = translations[selectedLanguage];
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -100,6 +154,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
 
     const handleLanguageSelect = (language) => {
         setSelectedLanguage(language);
+        localStorage.setItem('selectedLanguage', language);
         handleLanguageMenuClose();
         handleMobileMenuClose();
     };
@@ -141,8 +196,8 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleMenuClose}>{text.profile}</MenuItem>
+            <MenuItem onClick={handleMenuClose}>{text.myAccount}</MenuItem>
         </Menu>
     );
 
@@ -181,13 +236,13 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             onClose={handleMobileMenuClose}
         >
             <MenuItem onClick={() => navigate('/category')}>
-                <p>Category</p>
+                <p>{text.category}</p>
             </MenuItem>
             <MenuItem onClick={() => {
                 navigate('/dashboard');
                 handleMobileMenuClose();
             }}>
-                <p>Dashboard</p>
+                <p>{text.dashboard}</p>
             </MenuItem>
             <MenuItem onClick={() => {
                 navigate('/');
@@ -196,7 +251,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 }, 100);
                 handleMobileMenuClose();
             }}>
-                <p>New Arrivals</p>
+                <p>{text.newArrivals}</p>
             </MenuItem>
             <MenuItem onClick={() => {
                 navigate('/');
@@ -205,7 +260,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 }, 100);
                 handleMobileMenuClose();
             }}>
-                <p>Top Selling</p>
+                <p>{text.topSelling}</p>
             </MenuItem>
             <MenuItem onClick={() => navigate('/cart')}>
                 <IconButton
@@ -217,7 +272,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         <ShoppingCartIcon />
                     </Badge>
                 </IconButton>
-                <p>Cart</p>
+                <p>{text.cart}</p>
             </MenuItem>
             <MenuItem
                 onClick={handleLanguageMenuOpen}
@@ -229,7 +284,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             </MenuItem>
             <MenuItem onClick={handleFullscreenToggle}>
                 {isFullscreen ? <FullscreenExitIcon sx={{ marginRight: 1 }} /> : <FullscreenIcon sx={{ marginRight: 1 }} />}
-                <p>{isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}</p>
+                <p>{isFullscreen ? text.exitFullscreen : text.fullscreen}</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
@@ -241,7 +296,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>Profile</p>
+                <p>{text.profile}</p>
             </MenuItem>
         </Menu>
     );
@@ -304,7 +359,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                             whiteSpace: 'nowrap'
                         }}
                     >
-                        Category
+                        {text.category}
                     </Typography>
                     <Typography
                         variant="body1"
@@ -318,7 +373,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                             whiteSpace: 'nowrap'
                         }}
                     >
-                        Dashboard
+                        {text.dashboard}
                     </Typography>
                     <Typography
                         variant="body1"
@@ -337,7 +392,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                             whiteSpace: 'nowrap'
                         }}
                     >
-                        New Arrivals
+                        {text.newArrivals}
                     </Typography>
                     <Typography
                         variant="body1"
@@ -356,14 +411,14 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                             whiteSpace: 'nowrap'
                         }}
                     >
-                        Top Selling
+                        {text.topSelling}
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
-                            placeholder="Search…"
+                            placeholder={`${text.search}…`}
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
