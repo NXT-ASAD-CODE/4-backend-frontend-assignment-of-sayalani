@@ -1,6 +1,8 @@
 import React from 'react'
+import { useLanguage } from '../context/LanguageContext'
 
 function LandingPage() {
+    const { text } = useLanguage()
     const handleShopNow = () => {
         const section = document.getElementById('new-arrivals')
         if (section) {
@@ -12,26 +14,26 @@ function LandingPage() {
         <div className='LandingPage'>
             <div className='Text-Section'>
                 <div className="Heading">
-                    <h1>FIND CLOTHES <br />  THAT MATCHES <br />  YOUR STYLE</h1>
+                    <h1>{text.heroTitle}</h1>
                 </div>
                 <div className="Paragraph">
-                    <p>Browse through our diverse range of meticulously crafted garments, designed <br /> to bring out your individuality and cater to your sense of style.</p>
+                    <p>{text.heroDescription}</p>
                 </div>
                 <div className="ShopNow-btn">
-                    <button type="button" onClick={handleShopNow}>Shop Now</button>
+                    <button type="button" onClick={handleShopNow}>{text.shopNow}</button>
                 </div>
                 <div className="stats-bar">
                     <div className="stat">
                         <div className="stat-number">200+</div>
-                        <div className="stat-label">International Brands</div>
+                        <div className="stat-label">{text.internationalBrands}</div>
                     </div>
                     <div className="stat">
                         <div className="stat-number">2000+</div>
-                        <div className="stat-label">High-Quality Products</div>
+                        <div className="stat-label">{text.qualityProducts}</div>
                     </div>
                     <div className="stat">
                         <div className="stat-number">30000+</div>
-                        <div className="stat-label">Happy Customers</div>
+                        <div className="stat-label">{text.happyCustomers}</div>
                     </div>
                 </div>
             </div>

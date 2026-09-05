@@ -13,6 +13,7 @@ import ProductPage from './components/ProductPage'
 import CartPage from './components/CartPage'
 import CategoryPage from './components/CategoryPage'
 import DashboardPage from './components/DashboardPage'
+import { LanguageProvider } from './context/LanguageContext'
 import { getProducts } from './api/products'
 
 const getStoredCart = () => {
@@ -144,7 +145,8 @@ function App() {
   }
 
   return (
-    <Routes>
+    <LanguageProvider>
+      <Routes>
       <Route path="/" element={<HomePage cartCount={cartCount} />} />
       <Route
         path="/product/:id"
@@ -182,7 +184,8 @@ function App() {
           </PageLayout>
         }
       />
-    </Routes>
+      </Routes>
+    </LanguageProvider>
   )
 }
 

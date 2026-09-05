@@ -18,6 +18,7 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -61,71 +62,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const translations = {
-    English: {
-        category: 'Category',
-        dashboard: 'Dashboard',
-        newArrivals: 'New Arrivals',
-        topSelling: 'Top Selling',
-        cart: 'Cart',
-        profile: 'Profile',
-        myAccount: 'My account',
-        fullscreen: 'Fullscreen',
-        exitFullscreen: 'Exit Fullscreen',
-        search: 'Search',
-    },
-    French: {
-        category: 'Catégorie',
-        dashboard: 'Tableau de bord',
-        newArrivals: 'Nouveautés',
-        topSelling: 'Meilleures ventes',
-        cart: 'Panier',
-        profile: 'Profil',
-        myAccount: 'Mon compte',
-        fullscreen: 'Plein écran',
-        exitFullscreen: 'Quitter le plein écran',
-        search: 'Rechercher',
-    },
-    Romanian: {
-        category: 'Categorie',
-        dashboard: 'Tablou de bord',
-        newArrivals: 'Noutăți',
-        topSelling: 'Cele mai vândute',
-        cart: 'Coș',
-        profile: 'Profil',
-        myAccount: 'Contul meu',
-        fullscreen: 'Ecran complet',
-        exitFullscreen: 'Ieșire din ecran complet',
-        search: 'Caută',
-    },
-    Chinese: {
-        category: '分类',
-        dashboard: '仪表板',
-        newArrivals: '新品',
-        topSelling: '热销商品',
-        cart: '购物车',
-        profile: '个人资料',
-        myAccount: '我的账户',
-        fullscreen: '全屏',
-        exitFullscreen: '退出全屏',
-        search: '搜索',
-    },
-};
-
 export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const navigate = useNavigate();
+    const { selectedLanguage, selectLanguage, text, languages } = useLanguage();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [languageAnchorEl, setLanguageAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const [selectedLanguage, setSelectedLanguage] = React.useState(() => {
-        return localStorage.getItem('selectedLanguage') || 'English';
-    });
     const [isFullscreen, setIsFullscreen] = React.useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
     const isLanguageMenuOpen = Boolean(languageAnchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const text = translations[selectedLanguage];
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -153,8 +100,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
     };
 
     const handleLanguageSelect = (language) => {
-        setSelectedLanguage(language);
-        localStorage.setItem('selectedLanguage', language);
+        selectLanguage(language);
         handleLanguageMenuClose();
         handleMobileMenuClose();
     };
@@ -179,7 +125,6 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
 
     const menuId = 'primary-search-account-menu';
     const languageMenuId = 'language-menu';
-    const languages = ['English', 'French', 'Romanian', 'Chinese'];
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
