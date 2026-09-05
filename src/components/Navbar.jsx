@@ -16,6 +16,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
@@ -219,6 +220,14 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 </IconButton>
                 <p>{text.cart}</p>
             </MenuItem>
+            <MenuItem aria-label={text.notifications}>
+                <IconButton size="large" aria-label={text.notifications} color="inherit">
+                    <Badge badgeContent={3} color="error">
+                        <NotificationsIcon />
+                    </Badge>
+                </IconButton>
+                <p>{text.notifications}</p>
+            </MenuItem>
             <MenuItem
                 onClick={handleLanguageMenuOpen}
                 aria-controls={isLanguageMenuOpen ? languageMenuId : undefined}
@@ -376,6 +385,15 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                             color="inherit"
                         >
                             {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                        </IconButton>
+                        <IconButton
+                            size="large"
+                            aria-label={text.notifications}
+                            color="inherit"
+                        >
+                            <Badge badgeContent={3} color="error">
+                                <NotificationsIcon />
+                            </Badge>
                         </IconButton>
                         <IconButton
                             size="large"
