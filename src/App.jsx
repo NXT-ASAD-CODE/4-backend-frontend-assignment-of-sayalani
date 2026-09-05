@@ -12,6 +12,7 @@ import HappyCustomers from './components/HappyCustomers'
 import ProductPage from './components/ProductPage'
 import CartPage from './components/CartPage'
 import CategoryPage from './components/CategoryPage'
+import DashboardPage from './components/DashboardPage'
 import { getProducts } from './api/products'
 
 const getStoredCart = () => {
@@ -170,6 +171,14 @@ function App() {
         element={
           <PageLayout cartCount={cartCount}>
             <CategoryPage />
+          </PageLayout>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <PageLayout cartCount={cartCount}>
+            <DashboardPage />
           </PageLayout>
         }
       />
