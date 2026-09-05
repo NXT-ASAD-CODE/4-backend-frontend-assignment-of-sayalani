@@ -388,6 +388,7 @@ body {
   .Heading-props {
     font-size: 22px;
     text-align: center;
+    line-height: 50px;
     justify-content: center;
   }
 }
