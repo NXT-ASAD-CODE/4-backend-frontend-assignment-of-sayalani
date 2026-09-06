@@ -17,6 +17,7 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import CloseIcon from '@mui/icons-material/Close';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
@@ -67,7 +68,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const navigate = useNavigate();
     const { selectedLanguage, selectLanguage, text, languages } = useLanguage();
-    const { notifications, markAsRead } = useNotifications();
+    const { notifications, markAsRead, removeNotification } = useNotifications();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [languageAnchorEl, setLanguageAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -212,6 +213,17 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         backgroundColor: notification.read ? 'transparent' : '#f5f7ff',
                     }}
                 >
+                    <IconButton
+                        size="small"
+                        aria-label="delete notification"
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            removeNotification(notification.id);
+                        }}
+                        sx={{ color: '#777', flexShrink: 0, mt: -0.5 }}
+                    >
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
                     {!notification.read && (
                         <Box sx={{ width: 8, height: 8, mt: 0.8, borderRadius: '50%', backgroundColor: '#1976d2', flexShrink: 0 }} />
                     )}

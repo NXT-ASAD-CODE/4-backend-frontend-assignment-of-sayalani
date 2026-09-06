@@ -32,8 +32,14 @@ export function NotificationProvider({ children }) {
     )))
   }
 
+  const removeNotification = (notificationId) => {
+    setNotifications((currentNotifications) => currentNotifications.filter(
+      (notification) => notification.id !== notificationId
+    ))
+  }
+
   return (
-    <NotificationContext.Provider value={{ notifications, addNotification, markAsRead }}>
+    <NotificationContext.Provider value={{ notifications, addNotification, markAsRead, removeNotification }}>
       {children}
     </NotificationContext.Provider>
   )
