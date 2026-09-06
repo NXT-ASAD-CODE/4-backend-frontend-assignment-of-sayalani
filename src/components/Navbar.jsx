@@ -63,17 +63,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+const initialNotifications = [
+    { id: 1, message: 'Your order has been shipped', read: false },
+    { id: 2, message: 'New styles have been added', read: false },
+    { id: 3, message: 'Your cart is waiting for you', read: false },
+    { id: 4, message: 'Welcome to SHOP.CO', read: true },
+    { id: 5, message: 'Your profile was updated', read: true },
+];
+
 export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const navigate = useNavigate();
     const { selectedLanguage, selectLanguage, text, languages } = useLanguage();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [languageAnchorEl, setLanguageAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [notificationAnchorEl, setNotificationAnchorEl] = React.useState(null);
+    const [notifications, setNotifications] = React.useState(initialNotifications);
     const [isFullscreen, setIsFullscreen] = React.useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
     const isLanguageMenuOpen = Boolean(languageAnchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const isNotificationMenuOpen = Boolean(notificationAnchorEl);
+    const unreadNotifications = notifications.filter((notification) => !notification.read);
+    const sortedNotifications = [...notifications].sort(
+        (first, second) => Number(first.read) - Number(second.read)
+    );
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -106,6 +121,23 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
         handleMobileMenuClose();
     };
 
+    const handleNotificationMenuOpen = (event) => {
+        setNotificationAnchorEl(event.currentTarget);
+        handleMobileMenuClose();
+    };
+
+    const handleNotificationMenuClose = () => {
+        setNotificationAnchorEl(null);
+    };
+
+    const handleNotificationClick = (notificationId) => {
+        setNotifications((currentNotifications) => currentNotifications.map((notification) => (
+            notification.id === notificationId
+                ? { ...notification, read: true }
+                : notification
+        )));
+    };
+
     React.useEffect(() => {
         const handleFullscreenChange = () => {
             setIsFullscreen(Boolean(document.fullscreenElement));
@@ -126,6 +158,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
 
     const menuId = 'primary-search-account-menu';
     const languageMenuId = 'language-menu';
+    const notificationMenuId = 'notification-menu';
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
@@ -159,6 +192,48 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             {languages.map((language) => (
                 <MenuItem key={language} onClick={() => handleLanguageSelect(language)}>
                     {language}
+                </MenuItem>
+            ))}
+        </Menu>
+    );
+
+    const renderNotificationMenu = (
+        <Menu
+            anchorEl={notificationAnchorEl}
+            id={notificationMenuId}
+            open={isNotificationMenuOpen}
+            onClose={handleNotificationMenuClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            PaperProps={{ sx: { width: 320, maxWidth: 'calc(100vw - 32px)' } }}
+        >
+            <Box sx={{ px: 2, py: 1, borderBottom: '1px solid #eee' }}>
+                <Typography sx={{ fontWeight: 700, color: '#111' }}>
+                    {text.notifications}
+                </Typography>
+            </Box>
+            {sortedNotifications.map((notification) => (
+                <MenuItem
+                    key={notification.id}
+                    onClick={() => handleNotificationClick(notification.id)}
+                    sx={{
+                        alignItems: 'flex-start',
+                        gap: 1,
+                        whiteSpace: 'normal',
+                        backgroundColor: notification.read ? 'transparent' : '#f5f7ff',
+                    }}
+                >
+                    {!notification.read && (
+                        <Box sx={{ width: 8, height: 8, mt: 0.8, borderRadius: '50%', backgroundColor: '#1976d2', flexShrink: 0 }} />
+                    )}
+                    <Box>
+                        <Typography sx={{ fontSize: 14, fontWeight: notification.read ? 400 : 700, color: '#111' }}>
+                            {notification.message}
+                        </Typography>
+                        <Typography sx={{ fontSize: 12, color: '#777' }}>
+                            {notification.read ? 'Read' : 'Unread'}
+                        </Typography>
+                    </Box>
                 </MenuItem>
             ))}
         </Menu>
@@ -221,8 +296,15 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 <p>{text.cart}</p>
             </MenuItem>
             <MenuItem aria-label={text.notifications}>
-                <IconButton size="large" aria-label={text.notifications} color="inherit">
-                    <Badge badgeContent={3} color="error">
+                <IconButton
+                    size="large"
+                    aria-label={text.notifications}
+                    aria-controls={isNotificationMenuOpen ? notificationMenuId : undefined}
+                    aria-haspopup="true"
+                    onClick={handleNotificationMenuOpen}
+                    color="inherit"
+                >
+                    <Badge badgeContent={unreadNotifications.length} color="error">
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
@@ -389,9 +471,12 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         <IconButton
                             size="large"
                             aria-label={text.notifications}
+                            aria-controls={isNotificationMenuOpen ? notificationMenuId : undefined}
+                            aria-haspopup="true"
+                            onClick={handleNotificationMenuOpen}
                             color="inherit"
                         >
-                            <Badge badgeContent={3} color="error">
+                            <Badge badgeContent={unreadNotifications.length} color="error">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
@@ -444,6 +529,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             {renderMobileMenu}
             {renderMenu}
             {renderLanguageMenu}
+            {renderNotificationMenu}
         </Box>
     );
 }
