@@ -141,6 +141,17 @@ function App() {
   }
 
   const removeFromCart = (productId, selectedColor, selectedSize) => {
+    const removedItem = cartItems.find(
+      (item) =>
+        item.id === productId &&
+        item.selectedColor === selectedColor &&
+        item.selectedSize === selectedSize
+    )
+
+    if (removedItem) {
+      addNotification(`${removedItem.name} removed from cart`)
+    }
+
     setCartItems((prevItems) =>
       prevItems.filter(
         (item) =>
