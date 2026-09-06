@@ -10,6 +10,9 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -214,7 +217,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             onClose={handleNotificationMenuClose}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            PaperProps={{ sx: { width: 320, maxWidth: 'calc(100vw - 32px)' } }}
+            slotProps={{ paper: { sx: { width: 320, maxWidth: 'calc(100vw - 32px)' } } }}
         >
             <Box sx={{ px: 2, py: 1, borderBottom: '1px solid #eee' }}>
                 <Typography sx={{ fontWeight: 700, color: '#111' }}>
@@ -378,23 +381,23 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                     <CloseIcon />
                 </IconButton>
             </Box>
-            <Box component="nav" sx={{ px: 1 }}>
-                <MenuItem onClick={() => handleDrawerNavigate('/category')} sx={{ color: '#fff' }}>
-                    {text.category}
-                </MenuItem>
-                <MenuItem onClick={() => handleDrawerNavigate('/dashboard')} sx={{ color: '#fff' }}>
-                    {text.dashboard}
-                </MenuItem>
-                <MenuItem onClick={() => handleDrawerSectionNavigate('new-arrivals')} sx={{ color: '#fff' }}>
-                    {text.newArrivals}
-                </MenuItem>
-                <MenuItem onClick={() => handleDrawerSectionNavigate('top-selling')} sx={{ color: '#fff' }}>
-                    {text.topSelling}
-                </MenuItem>
-                <MenuItem onClick={() => handleDrawerNavigate('/cart')} sx={{ color: '#fff' }}>
-                    {text.cart}
-                </MenuItem>
-            </Box>
+            <List component="nav" sx={{ px: 1 }}>
+                <ListItemButton onClick={() => handleDrawerNavigate('/category')} sx={{ color: '#000' }}>
+                    <ListItemText primary={text.category} />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleDrawerNavigate('/dashboard')} sx={{ color: '#000' }}>
+                    <ListItemText primary={text.dashboard} />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleDrawerSectionNavigate('new-arrivals')} sx={{ color: '#000' }}>
+                    <ListItemText primary={text.newArrivals} />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleDrawerSectionNavigate('top-selling')} sx={{ color: '#000' }}>
+                    <ListItemText primary={text.topSelling} />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleDrawerNavigate('/cart')} sx={{ color: '#000' }}>
+                    <ListItemText primary={text.cart} />
+                </ListItemButton>
+            </List>
         </Drawer>
     );
 
