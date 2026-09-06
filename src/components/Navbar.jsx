@@ -20,6 +20,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import { useNotifications } from '../context/NotificationContext';
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -63,22 +64,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const initialNotifications = [
-    { id: 1, message: 'Your order has been shipped', read: false },
-    { id: 2, message: 'New styles have been added', read: false },
-    { id: 3, message: 'Your cart is waiting for you', read: false },
-    { id: 4, message: 'Welcome to SHOP.CO', read: true },
-    { id: 5, message: 'Your profile was updated', read: true },
-];
-
 export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const navigate = useNavigate();
     const { selectedLanguage, selectLanguage, text, languages } = useLanguage();
+    const { notifications, markAsRead } = useNotifications();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [languageAnchorEl, setLanguageAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [notificationAnchorEl, setNotificationAnchorEl] = React.useState(null);
-    const [notifications, setNotifications] = React.useState(initialNotifications);
     const [isFullscreen, setIsFullscreen] = React.useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
@@ -131,11 +124,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
     };
 
     const handleNotificationClick = (notificationId) => {
-        setNotifications((currentNotifications) => currentNotifications.map((notification) => (
-            notification.id === notificationId
-                ? { ...notification, read: true }
-                : notification
-        )));
+        markAsRead(notificationId);
     };
 
     React.useEffect(() => {

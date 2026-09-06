@@ -15,6 +15,7 @@ import CategoryPage from './components/CategoryPage'
 import DashboardPage from './components/DashboardPage'
 import { LanguageProvider } from './context/LanguageContext'
 import { useLanguage } from './context/LanguageContext'
+import { useNotifications } from './context/NotificationContext'
 import { getProducts } from './api/products'
 
 const getStoredCart = () => {
@@ -84,6 +85,7 @@ function HomePage({ cartCount }) {
 
 function App() {
   const [cartItems, setCartItems] = useState(getStoredCart)
+  const { addNotification } = useNotifications()
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems))
@@ -92,6 +94,7 @@ function App() {
   const cartCount = cartItems.reduce((count, item) => count + Number(item.quantity || 1), 0)
 
   const addToCart = (product) => {
+    addNotification(`${product.name} added to cart`)
     setCartItems((prevItems) => {
       const itemKey = `${product.id}-${product.selectedColor}-${product.selectedSize}`
       const existingItem = prevItems.find(
