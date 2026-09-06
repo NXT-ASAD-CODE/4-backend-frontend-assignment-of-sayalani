@@ -9,6 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -73,6 +74,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const [languageAnchorEl, setLanguageAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [notificationAnchorEl, setNotificationAnchorEl] = React.useState(null);
+    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
     const [isFullscreen, setIsFullscreen] = React.useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
@@ -99,6 +101,23 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
+    };
+
+    const handleDrawerToggle = (open) => () => {
+        setIsDrawerOpen(open);
+    };
+
+    const handleDrawerNavigate = (path) => {
+        navigate(path);
+        setIsDrawerOpen(false);
+    };
+
+    const handleDrawerSectionNavigate = (sectionId) => {
+        navigate('/');
+        setIsDrawerOpen(false);
+        setTimeout(() => {
+            document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     };
 
     const handleLanguageMenuOpen = (event) => {
@@ -338,6 +357,47 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
         </Menu>
     );
 
+    const renderDrawer = (
+        <Drawer
+            anchor="left"
+            open={isDrawerOpen}
+            onClose={handleDrawerToggle(false)}
+            transitionDuration={300}
+            PaperProps={{
+                sx: {
+                    width: { xs: '100vw', md: '20vw' },
+                    minWidth: { md: 240 },
+                    backgroundColor: '#111936',
+                    color: '#fff',
+                },
+            }}
+        >
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2 }}>
+                <Typography variant="h6" sx={{ fontWeight: 800 }}>SHOP.CO</Typography>
+                <IconButton aria-label="close navigation" onClick={handleDrawerToggle(false)} sx={{ color: '#fff' }}>
+                    <CloseIcon />
+                </IconButton>
+            </Box>
+            <Box component="nav" sx={{ px: 1 }}>
+                <MenuItem onClick={() => handleDrawerNavigate('/category')} sx={{ color: '#fff' }}>
+                    {text.category}
+                </MenuItem>
+                <MenuItem onClick={() => handleDrawerNavigate('/dashboard')} sx={{ color: '#fff' }}>
+                    {text.dashboard}
+                </MenuItem>
+                <MenuItem onClick={() => handleDrawerSectionNavigate('new-arrivals')} sx={{ color: '#fff' }}>
+                    {text.newArrivals}
+                </MenuItem>
+                <MenuItem onClick={() => handleDrawerSectionNavigate('top-selling')} sx={{ color: '#fff' }}>
+                    {text.topSelling}
+                </MenuItem>
+                <MenuItem onClick={() => handleDrawerNavigate('/cart')} sx={{ color: '#fff' }}>
+                    {text.cart}
+                </MenuItem>
+            </Box>
+        </Drawer>
+    );
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar
@@ -361,6 +421,8 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
+                        aria-expanded={isDrawerOpen}
+                        onClick={handleDrawerToggle(true)}
                         sx={{ mr: 2 }}
                     >
                         <MenuIcon />
@@ -528,6 +590,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
+            {renderDrawer}
             {renderMenu}
             {renderLanguageMenu}
             {renderNotificationMenu}
