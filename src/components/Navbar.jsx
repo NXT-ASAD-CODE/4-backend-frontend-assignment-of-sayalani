@@ -368,12 +368,13 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             open={isDrawerOpen}
             onClose={handleDrawerToggle(false)}
             transitionDuration={300}
-            PaperProps={{
-                sx: {
-                    width: { xs: '100vw', md: '20vw' },
-                    minWidth: { md: 240 },
-                    backgroundColor: '#111936',
-                    color: '#fff',
+            slotProps={{
+                paper: {
+                    sx: {
+                        width: { xs: '100vw', sm: '20vw' },
+                        backgroundColor: '#111936',
+                        color: '#BDC8F0',
+                    },
                 },
             }}
         >
@@ -386,14 +387,27 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             <List component="nav" sx={{ px: 1 }}>
                 {isDashboardPage ? (
                     <>
-                        <Typography sx={{ px: 2, py: 1, color: '#000', fontWeight: 800 }}>
+                        <Typography sx={{ px: 2, py: 1, color: '#E3F2F7', fontWeight: 200 }}>
                             Dashboard
                         </Typography>
                         {['Default', 'Analytics', 'Invoice', 'CRM', 'Blog'].map((option) => (
                             <ListItemButton
                                 key={option}
                                 onClick={handleDrawerToggle(false)}
-                                sx={{ color: '#000' }}
+                                sx={{ color: '#BDC8F0' }}
+                            >
+                                <ListItemText primary={option} />
+                            </ListItemButton>
+                        ))}
+                        <hr style={{ border: 0, borderTop: '1px solid #d3d3d3', margin: '12px 16px' }} />
+                        <Typography sx={{ px: 2, py: 1, color: '#E3F2F7', fontWeight: 200 }}>
+                            Widget
+                        </Typography>
+                        {['Statistics', 'Data', 'Chart'].map((option) => (
+                            <ListItemButton
+                                key={option}
+                                onClick={handleDrawerToggle(false)}
+                                sx={{ color: '#BDC8F0' }}
                             >
                                 <ListItemText primary={option} />
                             </ListItemButton>
