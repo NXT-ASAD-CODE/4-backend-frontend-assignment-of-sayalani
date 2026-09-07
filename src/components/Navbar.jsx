@@ -23,7 +23,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useNotifications } from '../context/NotificationContext';
 
@@ -71,6 +71,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const navigate = useNavigate();
+    const location = useLocation();
     const { selectedLanguage, selectLanguage, text, languages } = useLanguage();
     const { notifications, markAsRead, removeNotification } = useNotifications();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -84,6 +85,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const isLanguageMenuOpen = Boolean(languageAnchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const isNotificationMenuOpen = Boolean(notificationAnchorEl);
+    const isDashboardPage = location.pathname === '/dashboard';
     const unreadNotifications = notifications.filter((notification) => !notification.read);
     const sortedNotifications = [...notifications].sort(
         (first, second) => Number(first.read) - Number(second.read)
@@ -382,21 +384,40 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 </IconButton>
             </Box>
             <List component="nav" sx={{ px: 1 }}>
-                <ListItemButton onClick={() => handleDrawerNavigate('/category')} sx={{ color: '#000' }}>
-                    <ListItemText primary={text.category} />
-                </ListItemButton>
-                <ListItemButton onClick={() => handleDrawerNavigate('/dashboard')} sx={{ color: '#000' }}>
-                    <ListItemText primary={text.dashboard} />
-                </ListItemButton>
-                <ListItemButton onClick={() => handleDrawerSectionNavigate('new-arrivals')} sx={{ color: '#000' }}>
-                    <ListItemText primary={text.newArrivals} />
-                </ListItemButton>
-                <ListItemButton onClick={() => handleDrawerSectionNavigate('top-selling')} sx={{ color: '#000' }}>
-                    <ListItemText primary={text.topSelling} />
-                </ListItemButton>
-                <ListItemButton onClick={() => handleDrawerNavigate('/cart')} sx={{ color: '#000' }}>
-                    <ListItemText primary={text.cart} />
-                </ListItemButton>
+                {isDashboardPage ? (
+                    <>
+                        <Typography sx={{ px: 2, py: 1, color: '#000', fontWeight: 800 }}>
+                            Dashboard
+                        </Typography>
+                        {['Default', 'Analytics', 'Invoice', 'CRM', 'Blog'].map((option) => (
+                            <ListItemButton
+                                key={option}
+                                onClick={handleDrawerToggle(false)}
+                                sx={{ color: '#000' }}
+                            >
+                                <ListItemText primary={option} />
+                            </ListItemButton>
+                        ))}
+                    </>
+                ) : (
+                    <>
+                        <ListItemButton onClick={() => handleDrawerNavigate('/category')} sx={{ color: '#000' }}>
+                            <ListItemText primary={text.category} />
+                        </ListItemButton>
+                        <ListItemButton onClick={() => handleDrawerNavigate('/dashboard')} sx={{ color: '#000' }}>
+                            <ListItemText primary={text.dashboard} />
+                        </ListItemButton>
+                        <ListItemButton onClick={() => handleDrawerSectionNavigate('new-arrivals')} sx={{ color: '#000' }}>
+                            <ListItemText primary={text.newArrivals} />
+                        </ListItemButton>
+                        <ListItemButton onClick={() => handleDrawerSectionNavigate('top-selling')} sx={{ color: '#000' }}>
+                            <ListItemText primary={text.topSelling} />
+                        </ListItemButton>
+                        <ListItemButton onClick={() => handleDrawerNavigate('/cart')} sx={{ color: '#000' }}>
+                            <ListItemText primary={text.cart} />
+                        </ListItemButton>
+                    </>
+                )}
             </List>
         </Drawer>
     );
