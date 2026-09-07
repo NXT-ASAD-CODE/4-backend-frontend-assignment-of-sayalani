@@ -415,19 +415,19 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                     </>
                 ) : (
                     <>
-                        <ListItemButton onClick={() => handleDrawerNavigate('/category')} sx={{ color: '#000' }}>
+                        <ListItemButton onClick={() => handleDrawerNavigate('/category')} sx={{ color: '#E3F2F7' }}>
                             <ListItemText primary={text.category} />
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleDrawerNavigate('/dashboard')} sx={{ color: '#000' }}>
+                        <ListItemButton onClick={() => handleDrawerNavigate('/dashboard')} sx={{ color: '#E3F2F7' }}>
                             <ListItemText primary={text.dashboard} />
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleDrawerSectionNavigate('new-arrivals')} sx={{ color: '#000' }}>
+                        <ListItemButton onClick={() => handleDrawerSectionNavigate('new-arrivals')} sx={{ color: '#E3F2F7' }}>
                             <ListItemText primary={text.newArrivals} />
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleDrawerSectionNavigate('top-selling')} sx={{ color: '#000' }}>
+                        <ListItemButton onClick={() => handleDrawerSectionNavigate('top-selling')} sx={{ color: '#E3F2F7' }}>
                             <ListItemText primary={text.topSelling} />
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleDrawerNavigate('/cart')} sx={{ color: '#000' }}>
+                        <ListItemButton onClick={() => handleDrawerNavigate('/cart')} sx={{ color: '#E3F2F7' }}>
                             <ListItemText primary={text.cart} />
                         </ListItemButton>
                     </>
