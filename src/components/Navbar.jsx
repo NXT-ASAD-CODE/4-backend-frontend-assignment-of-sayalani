@@ -425,6 +425,19 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                                 <ListItemText primary={option} />
                             </ListItemButton>
                         ))}
+                        <hr style={{ border: 0, borderTop: '1px solid #d3d3d3', margin: '12px 16px' }} />
+                        <Typography sx={{ px: 2, py: 1, color: '#E3F2F7', fontWeight: 200 }}>
+                            Forms
+                        </Typography>
+                        {['Components', 'Plugins', 'Layout', 'Table', 'Data Grid', 'Charts', 'Map', 'Form Valida..', 'Forms Wizard'].map((option) => (
+                            <ListItemButton
+                                key={option}
+                                onClick={handleDrawerToggle(false)}
+                                sx={{ color: '#BDC8F0' }}
+                            >
+                                <ListItemText primary={option} />
+                            </ListItemButton>
+                        ))}
                     </>
                 ) : (
                     <>
