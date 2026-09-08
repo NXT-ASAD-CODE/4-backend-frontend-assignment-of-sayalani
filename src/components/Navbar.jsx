@@ -12,6 +12,7 @@ import Menu from '@mui/material/Menu';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -22,6 +23,11 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
+import SpeedIcon from '@mui/icons-material/Speed';
+import TvIcon from '@mui/icons-material/Tv';
+import ArticleIcon from '@mui/icons-material/Article';
+import DescriptionIcon from '@mui/icons-material/Description';
+import PieChartIcon from '@mui/icons-material/PieChart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
@@ -396,6 +402,31 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                                 onClick={handleDrawerToggle(false)}
                                 sx={{ color: '#BDC8F0' }}
                             >
+                                {option === 'Default' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <SpeedIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Analytics' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <TvIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Invoice' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <DescriptionIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'CRM' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <PieChartIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Blog' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <ArticleIcon />
+                                    </ListItemIcon>
+                                )}
                                 <ListItemText primary={option} />
                             </ListItemButton>
                         ))}
