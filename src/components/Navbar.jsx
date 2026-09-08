@@ -24,13 +24,18 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
 import SpeedIcon from '@mui/icons-material/Speed';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import MailIcon from '@mui/icons-material/Mail';
 import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import TvIcon from '@mui/icons-material/Tv';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArticleIcon from '@mui/icons-material/Article';
 import DescriptionIcon from '@mui/icons-material/Description';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
-import PieChartIcon from '@mui/icons-material/PieChart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
@@ -486,6 +491,57 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                                 onClick={handleDrawerToggle(false)}
                                 sx={{ color: '#BDC8F0' }}
                             >
+                                {option === 'Users' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <HowToRegIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Customers' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <HeadphonesIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Order' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <ShoppingCartIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Chat' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <QuestionAnswerIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Mail' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <MailIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Calender' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <CalendarMonthIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Kanban' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M4 4l6 0" />
+                                            <path d="M14 4l6 0" />
+                                            <path d="M4 10a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -8" />
+                                            <path d="M14 10a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -2" />
+                                        </svg>
+                                    </ListItemIcon>
+                                )}
                                 <ListItemText primary={option} />
                             </ListItemButton>
                         ))}
