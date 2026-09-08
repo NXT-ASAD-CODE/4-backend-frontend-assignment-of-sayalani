@@ -219,6 +219,7 @@ body {
   z-index: 2;
   width: min(100%, 520px);
   max-width: 100%;
+  top:80px;
 }
 
 .person-image img {
@@ -246,7 +247,7 @@ body {
 
 .vector2-image {
   right: 10px;
-  top: 50px;
+  top: 90px;
 }
 
 .vector1-image img,
