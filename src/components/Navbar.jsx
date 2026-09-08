@@ -24,9 +24,12 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
 import SpeedIcon from '@mui/icons-material/Speed';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import TvIcon from '@mui/icons-material/Tv';
 import ArticleIcon from '@mui/icons-material/Article';
 import DescriptionIcon from '@mui/icons-material/Description';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import PieChartIcon from '@mui/icons-material/PieChart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -419,7 +422,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                                 )}
                                 {option === 'CRM' && (
                                     <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
-                                        <PieChartIcon />
+                                        <SportsBasketballIcon />
                                     </ListItemIcon>
                                 )}
                                 {option === 'Blog' && (
@@ -440,6 +443,36 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                                 onClick={handleDrawerToggle(false)}
                                 sx={{ color: '#BDC8F0' }}
                             >
+                                {option === 'Statistics' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                            <path d="M16.924 11.132a5 5 0 1 0 -4.056 5.792" />
+                                            <path d="M3 12a9 9 0 1 0 9 -9" />
+                                        </svg>
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Data' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <ContentPasteIcon />
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Chart' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <SignalCellularAltIcon />
+                                    </ListItemIcon>
+                                )}
                                 <ListItemText primary={option} />
                             </ListItemButton>
                         ))}
