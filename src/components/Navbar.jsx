@@ -455,7 +455,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         <Typography sx={{ px: 2, py: 1, color: '#E3F2F7', fontWeight: 200 }}>
                             Pages
                         </Typography>
-                        {['Authentication', 'Pricing','Maintenence','Landing','Contact Us','FAQs','Privacy Policy'].map((option) => (
+                        {['Authentication', 'Pricing', 'Maintenence', 'Landing', 'Contact Us', 'FAQs', 'Privacy Policy'].map((option) => (
                             <ListItemButton
                                 key={option}
                                 onClick={handleDrawerToggle(false)}
@@ -468,7 +468,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         <Typography sx={{ px: 2, py: 1, color: '#E3F2F7', fontWeight: 200 }}>
                             Utilities
                         </Typography>
-                        {['Typography', 'Color','Shadow','Icons','Animation','Grid'].map((option) => (
+                        {['Typography', 'Color', 'Shadow', 'Icons', 'Animation', 'Grid'].map((option) => (
                             <ListItemButton
                                 key={option}
                                 onClick={handleDrawerToggle(false)}
@@ -481,7 +481,17 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         <Typography sx={{ px: 2, py: 1, color: '#E3F2F7', fontWeight: 200 }}>
                             Others
                         </Typography>
-                        {['Manu Levels', 'Sub Caption Levels','Disabled Icon','Oval Chip','Avatar','Outlined'].map((option) => (
+                        {['Manu Levels', 'Sub Caption Levels', 'Disabled Icon', 'Oval Chip', 'Avatar', 'Outlined'].map((option) => (
+                            <ListItemButton
+                                key={option}
+                                onClick={handleDrawerToggle(false)}
+                                sx={{ color: '#BDC8F0' }}
+                            >
+                                <ListItemText primary={option} />
+                            </ListItemButton>
+                        ))}
+                        <hr style={{ border: 0, borderTop: '1px solid #d3d3d3', margin: '12px 16px' }} />
+                        {['Documentation', 'Roadmap'].map((option) => (
                             <ListItemButton
                                 key={option}
                                 onClick={handleDrawerToggle(false)}
