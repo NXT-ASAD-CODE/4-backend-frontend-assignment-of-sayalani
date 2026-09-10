@@ -620,9 +620,6 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         <ListItemButton onClick={() => handleDrawerNavigate('/category')} sx={{ color: '#E3F2F7' }}>
                             <ListItemText primary={text.category} />
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleDrawerNavigate('/dashboard')} sx={{ color: '#E3F2F7' }}>
-                            <ListItemText primary={text.dashboard} />
-                        </ListItemButton>
                         <ListItemButton onClick={() => handleDrawerSectionNavigate('new-arrivals')} sx={{ color: '#E3F2F7' }}>
                             <ListItemText primary={text.newArrivals} />
                         </ListItemButton>
