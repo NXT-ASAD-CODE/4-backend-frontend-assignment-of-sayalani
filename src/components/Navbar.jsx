@@ -396,7 +396,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 {isDashboardPage ? (
                     <>
                         <Typography sx={{ px: 2, py: 1, color: '#E3F2F7', fontWeight: 200 }}>
-                            Dashboard
+                            Main Menu
                         </Typography>
                         {['Dashboard', 'Product', 'Orders'].map((option) => (
                             <ListItemButton
@@ -404,6 +404,68 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                                 onClick={handleDrawerToggle(false)}
                                 sx={{ color: '#BDC8F0' }}
                             >
+                                {option === 'Dashboard' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <rect width="7" height="9" x="3" y="3" rx="1" />
+                                            <rect width="7" height="5" x="14" y="3" rx="1" />
+                                            <rect width="7" height="9" x="14" y="12" rx="1" />
+                                            <rect width="7" height="5" x="3" y="16" rx="1" />
+                                        </svg>
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Product' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M16 10a4 4 0 0 1-8 0" />
+                                            <path d="M3.103 6.034h17.794" />
+                                            <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" />
+                                        </svg>
+                                    </ListItemIcon>
+                                )}
+                                {option === 'Orders' && (
+                                    <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18" />
+                                            <path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25" />
+                                            <circle cx="18" cy="20" r="2" />
+                                            <circle cx="8" cy="20" r="2" />
+                                        </svg>
+                                    </ListItemIcon>
+                                )}
                                 {option === 'Default' && (
                                     <ListItemIcon sx={{ minWidth: 40, color: '#BDC8F0' }}>
                                         <SpeedIcon />
