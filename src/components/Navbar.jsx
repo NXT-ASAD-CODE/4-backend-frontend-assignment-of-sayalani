@@ -299,12 +299,6 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 <p>{text.category}</p>
             </MenuItem>
             <MenuItem onClick={() => {
-                navigate('/dashboard');
-                handleMobileMenuClose();
-            }}>
-                <p>{text.dashboard}</p>
-            </MenuItem>
-            <MenuItem onClick={() => {
                 navigate('/');
                 setTimeout(() => {
                     document.getElementById('new-arrivals')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -705,20 +699,6 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         }}
                     >
                         {text.category}
-                    </Typography>
-                    <Typography
-                        variant="body1"
-                        onClick={() => navigate('/dashboard')}
-                        sx={{
-                            marginLeft: 2,
-                            fontWeight: 700,
-                            cursor: 'pointer',
-                            color: '#111',
-                            display: { xs: 'none', md: 'block' },
-                            whiteSpace: 'nowrap'
-                        }}
-                    >
-                        {text.dashboard}
                     </Typography>
                     <Typography
                         variant="body1"
