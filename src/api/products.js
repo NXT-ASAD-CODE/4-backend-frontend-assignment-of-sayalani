@@ -1,5 +1,5 @@
 const normalizeBaseUrl = (value = '') => value.replace(/\/+$/, '')
-const BASE_URL = normalizeBaseUrl(import.meta.env.VITE_API_URL || '')
+const BASE_URL = import.meta.env.PROD ? '' : normalizeBaseUrl(import.meta.env.VITE_API_URL || '')
 
 const getApiUrl = (path) => {
   const apiBase = BASE_URL.endsWith('/api') ? BASE_URL : `${BASE_URL}/api`
