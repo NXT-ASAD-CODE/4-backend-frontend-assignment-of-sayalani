@@ -33,6 +33,7 @@ function HomePage({ cartCount }) {
   const { text } = useLanguage()
   const [newArrivals, setNewArrivals] = useState([])
   const [topSelling, setTopSelling] = useState([])
+  const [productsError, setProductsError] = useState('')
 
   useEffect(() => {
     Promise.all([
@@ -43,7 +44,10 @@ function HomePage({ cartCount }) {
         setNewArrivals(newItems)
         setTopSelling(topItems)
       })
-      .catch((error) => console.error('Failed to load products:', error))
+      .catch((error) => {
+        console.error('Failed to load products from MongoDB:', error)
+        setProductsError('Products could not be loaded. Check the MongoDB API connection.')
+      })
   }, [])
 
   return (
@@ -51,6 +55,7 @@ function HomePage({ cartCount }) {
       <LandingPage />
       <Slider />
       <Heading title={text.newArrivals} id="new-arrivals" />
+      {productsError && <p style={{ color: '#b42318', textAlign: 'center' }}>{productsError}</p>}
       <div className="flex">
         {newArrivals.slice(0, 4).map((product) => (
           <DynamicProducts
