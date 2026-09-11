@@ -13,9 +13,18 @@ app.use(express.json())
 app.get('/api/health', async (request, response) => {
   try {
     await connectToDatabase()
-    response.json({ status: 'ok', database: 'connected' })
+    response.json({
+      status: 'ok',
+      database: 'connected',
+      source: 'mongodb',
+    })
   } catch (error) {
-    response.status(500).json({ status: 'error', database: 'disconnected' })
+    console.error('MongoDB health check failed:', error.message)
+    response.status(500).json({
+      status: 'error',
+      database: 'disconnected',
+      source: 'mongodb',
+    })
   }
 })
 
