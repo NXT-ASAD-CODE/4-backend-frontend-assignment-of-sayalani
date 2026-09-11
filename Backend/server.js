@@ -34,9 +34,16 @@ app.use((error, request, response, next) => {
 })
 
 if (!process.env.VERCEL) {
-  app.listen(port, () => {
-    console.log(`API server running on http://localhost:${port}`)
-  })
+  connectToDatabase()
+    .then(() => {
+      app.listen(port, () => {
+        console.log(`API server running on http://localhost:${port}`)
+      })
+    })
+    .catch((error) => {
+      console.error('MongoDB connection failed:', error.message)
+      process.exitCode = 1
+    })
 }
 
 export default app
