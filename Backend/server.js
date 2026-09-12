@@ -33,13 +33,43 @@ app.get('/api/dashboard/stats', async (request, response, next) => {
   try {
     const connection = await connectToDatabase()
     const database = connection.connection.db
+    const startDate = new Date()
+    startDate.setMonth(startDate.getMonth() - 5, 1)
+    startDate.setHours(0, 0, 0, 0)
     const [products, users, orders] = await Promise.all([
       database.collection('products').countDocuments(),
       database.collection('users').countDocuments(),
       database.collection('orders').countDocuments(),
     ])
+    const salesByMonth = await database.collection('orders').aggregate([
+      { $match: { createdAt: { $gte: startDate } } },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
+          total: {
+            $sum: {
+              $convert: {
+                input: { $ifNull: ['$total', '$amount'] },
+                to: 'double',
+                onError: 0,
+                onNull: 0,
+              },
+            },
+          },
+        },
+      },
+    ]).toArray()
+    const salesByMonthMap = new Map(salesByMonth.map((item) => [item._id, item.total]))
+    const salesOverview = Array.from({ length: 6 }, (_, index) => {
+      const month = new Date(startDate)
+      month.setMonth(startDate.getMonth() + index)
+      return {
+        label: month.toLocaleString('en-US', { month: 'short' }),
+        value: salesByMonthMap.get(`${month.getFullYear()}-${String(month.getMonth() + 1).padStart(2, '0')}`) || 0,
+      }
+    })
 
-    response.json({ products, users, orders })
+    response.json({ products, users, orders, salesOverview })
   } catch (error) {
     next(error)
   }

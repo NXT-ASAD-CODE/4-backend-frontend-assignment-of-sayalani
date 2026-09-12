@@ -2,9 +2,18 @@ import React, { useEffect, useState } from 'react'
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined'
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 const ADMIN_EMAIL = 'admin@example.com'
 const ADMIN_PASSWORD = 'admin123'
+const SALES_OVERVIEW = [
+  { label: 'Apr', value: 4200 },
+  { label: 'May', value: 5800 },
+  { label: 'Jun', value: 4900 },
+  { label: 'Jul', value: 7200 },
+  { label: 'Aug', value: 6500 },
+  { label: 'Sep', value: 8100 },
+]
 
 function DashboardPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -12,7 +21,9 @@ function DashboardPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [stats, setStats] = useState({ products: 0, users: 0, orders: 0 })
+  const [inventory, setInventory] = useState([])
   const [statsError, setStatsError] = useState('')
+  const [inventoryError, setInventoryError] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -27,18 +38,28 @@ function DashboardPage() {
   }
 
   useEffect(() => {
-    const loadStats = async () => {
-      try {
-        const response = await fetch('/api/dashboard/stats')
-        if (!response.ok) throw new Error('Failed to load dashboard statistics')
-        setStats(await response.json())
-      } catch (statsLoadError) {
-        console.error('Failed to load dashboard statistics:', statsLoadError)
+    const loadDashboardData = async () => {
+      const [statsResult, productsResult] = await Promise.allSettled([
+        fetch('/api/dashboard/stats'),
+        fetch('/api/products'),
+      ])
+
+      if (statsResult.status === 'fulfilled' && statsResult.value.ok) {
+        setStats(await statsResult.value.json())
+      } else {
+        console.error('Failed to load dashboard statistics:', statsResult.reason || statsResult.value?.status)
         setStatsError('Dashboard statistics could not be loaded.')
+      }
+
+      if (productsResult.status === 'fulfilled' && productsResult.value.ok) {
+        setInventory(await productsResult.value.json())
+      } else {
+        console.error('Failed to load products:', productsResult.reason || productsResult.value?.status)
+        setInventoryError('Product data could not be loaded.')
       }
     }
 
-    loadStats()
+    loadDashboardData()
   }, [])
 
   if (!isAuthenticated) {
@@ -84,9 +105,19 @@ function DashboardPage() {
 
   return (
     <main style={{ padding: '56px 6vw', minHeight: '60vh', background: '#f7f8fc' }}>
-      <h1 style={{ color: '#111', fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.1 }}>
-        Welcome to the Dashboard
-      </h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+        <h1 style={{ color: '#111', fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.1 }}>
+          Welcome to the Dashboard
+        </h1>
+        <button
+          type="button"
+          aria-label="Add product"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 18px', border: 0, borderRadius: '10px', color: '#fff', background: '#111936', fontSize: '14px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 8px 18px rgba(17, 25, 54, 0.18)' }}
+        >
+          <AddCircleOutlineIcon fontSize="small" />
+          Add product
+        </button>
+      </div>
       <p style={{ marginTop: '12px', color: '#666' }}>Here is a quick overview of your store.</p>
 
       {statsError && <p role="alert" style={{ marginTop: '24px', color: '#b42318' }}>{statsError}</p>}
@@ -153,6 +184,102 @@ function DashboardPage() {
             <p style={{ marginTop: '4px', color: '#111936', fontSize: '38px', lineHeight: 1.1, fontWeight: 800 }}>{value}</p>
           </article>
         ))}
+      </section>
+
+      <section
+        aria-label="Sales overview"
+        style={{
+          marginTop: '28px',
+          padding: '28px',
+          borderRadius: '18px',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          boxShadow: '0 12px 28px rgba(17, 25, 54, 0.06)',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+          <div>
+            <h2 style={{ color: '#111936', fontSize: '22px' }}>Sales Overview</h2>
+            <p style={{ marginTop: '6px', color: '#667085', fontSize: '14px' }}>Monthly sales performance</p>
+          </div>
+          <span style={{ color: '#2563eb', fontSize: '13px', fontWeight: 700 }}>Last 6 months</span>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'end',
+            gap: 'clamp(10px, 3vw, 28px)',
+            height: '240px',
+            marginTop: '28px',
+            padding: '20px 8px 0',
+            borderBottom: '1px solid #e5e7eb',
+          }}
+        >
+          {SALES_OVERVIEW.map(({ label, value }) => {
+            const maximumSales = Math.max(...SALES_OVERVIEW.map((item) => item.value), 1)
+            const barHeight = `${Math.max((value / maximumSales) * 100, value > 0 ? 4 : 0)}%`
+
+            return (
+              <div key={label} style={{ display: 'flex', flex: 1, height: '100%', flexDirection: 'column', justifyContent: 'end', alignItems: 'center', gap: '8px' }}>
+                <span style={{ color: '#475467', fontSize: '12px', fontWeight: 700 }}>${Number(value).toLocaleString()}</span>
+                <div
+                  title={`${label}: $${Number(value).toLocaleString()}`}
+                  style={{ width: 'min(44px, 70%)', height: barHeight, minHeight: value > 0 ? '8px' : 0, borderRadius: '8px 8px 0 0', background: 'linear-gradient(180deg, #60a5fa 0%, #2563eb 100%)', transition: 'height 300ms ease' }}
+                />
+                <span style={{ color: '#667085', fontSize: '13px' }}>{label}</span>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      <section
+        aria-label="Inventory"
+        style={{
+          marginTop: '28px',
+          padding: '28px',
+          overflowX: 'auto',
+          borderRadius: '18px',
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          boxShadow: '0 12px 28px rgba(17, 25, 54, 0.06)',
+        }}
+      >
+        <h2 style={{ color: '#111936', fontSize: '22px' }}>Inventory</h2>
+        <p style={{ marginTop: '6px', color: '#667085', fontSize: '14px' }}>All products fetched from MongoDB</p>
+        {inventoryError && <p role="alert" style={{ marginTop: '16px', color: '#b42318' }}>{inventoryError}</p>}
+        <table style={{ width: '100%', minWidth: '620px', marginTop: '22px', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <thead>
+            <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+              {['Title', 'Category', 'Price', 'In Stock'].map((heading) => (
+                <th key={heading} style={{ padding: '14px 12px', color: '#667085', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  {heading}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {inventory.map((product) => {
+              const hasStockField = product.inStock !== undefined || product.stock !== undefined
+              const isInStock = product.inStock ?? (hasStockField ? Number(product.stock) > 0 : true)
+
+              return (
+                <tr key={product.id || product._id} style={{ borderBottom: '1px solid #f0f2f5' }}>
+                  <td style={{ padding: '16px 12px', color: '#111936', fontWeight: 700 }}>{product.title || product.name}</td>
+                  <td style={{ padding: '16px 12px', color: '#667085' }}>{product.category || 'Uncategorized'}</td>
+                  <td style={{ padding: '16px 12px', color: '#111936', fontWeight: 600 }}>${Number(product.price || 0).toLocaleString()}</td>
+                  <td style={{ padding: '16px 12px' }}>
+                    <span style={{ display: 'inline-block', padding: '5px 10px', borderRadius: '999px', color: isInStock ? '#047857' : '#b42318', background: isInStock ? '#ecfdf3' : '#fef3f2', fontSize: '12px', fontWeight: 700 }}>
+                      {isInStock ? 'In Stock' : 'Out of Stock'}
+                    </span>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+        {inventory.length === 0 && <p style={{ padding: '24px 12px', color: '#667085' }}>No products found.</p>}
       </section>
     </main>
   )
