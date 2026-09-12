@@ -193,22 +193,22 @@ function DashboardPage() {
             ].map(([name, label, type]) => (
               <label key={name} style={{ display: 'grid', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
                 {label}
-                <input name={name} type={type} value={productForm[name]} onChange={handleProductFieldChange} required min={type === 'number' ? '0' : undefined} placeholder={name === 'colors' || name === 'sizes' ? 'Separate values with commas' : ''} style={{ width: '100%', padding: '12px 14px', border: '1px solid #d0d5dd', borderRadius: '9px', color: '#111936' }} />
+                <input name={name} type={type} value={productForm[name]} onChange={handleProductFieldChange} required min={type === 'number' ? '0' : undefined} placeholder={name === 'colors' || name === 'sizes' ? 'Separate values with commas' : ''} style={{ width: '100%', padding: '12px 14px', border: '1px solid #344054', borderRadius: '9px', color: '#fff', background: '#111936' }} />
               </label>
             ))}
             <label style={{ display: 'grid', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
               Category
-              <select name="category" value={productForm.category} onChange={handleProductFieldChange} style={{ width: '100%', padding: '12px 14px', border: '1px solid #d0d5dd', borderRadius: '9px', color: '#111936', background: '#fff' }}>
+              <select name="category" value={productForm.category} onChange={handleProductFieldChange} style={{ width: '100%', padding: '12px 14px', border: '1px solid #344054', borderRadius: '9px', color: '#fff', background: '#111936' }}>
                 {['New Arrivals', 'Top Selling', 'Women', 'Men', 'Accessories'].map((category) => <option key={category}>{category}</option>)}
               </select>
             </label>
             <label style={{ display: 'grid', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
               Product Image
-              <input name="image" type="file" accept="image/*" onChange={handleProductFieldChange} required style={{ width: '100%', padding: '9px', border: '1px solid #d0d5dd', borderRadius: '9px', color: '#667085', background: '#fff' }} />
+              <input name="image" type="file" accept="image/*" onChange={handleProductFieldChange} required style={{ width: '100%', padding: '9px', border: '1px solid #344054', borderRadius: '9px', color: '#fff', background: '#111936' }} />
             </label>
             <label style={{ display: 'grid', gridColumn: '1 / -1', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
               Product Description
-              <textarea name="description" value={productForm.description} onChange={handleProductFieldChange} required rows="4" style={{ width: '100%', resize: 'vertical', padding: '12px 14px', border: '1px solid #d0d5dd', borderRadius: '9px', color: '#111936' }} />
+              <textarea name="description" value={productForm.description} onChange={handleProductFieldChange} required rows="4" style={{ width: '100%', resize: 'vertical', padding: '12px 14px', border: '1px solid #344054', borderRadius: '9px', color: '#fff', background: '#111936' }} />
             </label>
             {productFormError && <p role="alert" style={{ gridColumn: '1 / -1', color: '#b42318' }}>{productFormError}</p>}
             <button type="submit" disabled={isSubmittingProduct} style={{ gridColumn: '1 / -1', justifySelf: 'start', padding: '12px 20px', border: 0, borderRadius: '9px', color: '#fff', background: isSubmittingProduct ? '#98a2b3' : '#111936', fontWeight: 700, cursor: isSubmittingProduct ? 'wait' : 'pointer' }}>
