@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined'
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutlined'
 
 const ADMIN_EMAIL = 'admin@example.com'
 const ADMIN_PASSWORD = 'admin123'
