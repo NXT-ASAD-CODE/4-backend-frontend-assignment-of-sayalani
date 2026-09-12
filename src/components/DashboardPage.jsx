@@ -24,6 +24,18 @@ function DashboardPage() {
   const [inventory, setInventory] = useState([])
   const [statsError, setStatsError] = useState('')
   const [inventoryError, setInventoryError] = useState('')
+  const [isAddProductOpen, setIsAddProductOpen] = useState(false)
+  const [isSubmittingProduct, setIsSubmittingProduct] = useState(false)
+  const [productFormError, setProductFormError] = useState('')
+  const [productForm, setProductForm] = useState({
+    category: 'New Arrivals',
+    title: '',
+    price: '',
+    description: '',
+    colors: '',
+    sizes: '',
+    image: null,
+  })
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -35,6 +47,44 @@ function DashboardPage() {
     }
 
     setError('Invalid admin email or password.')
+  }
+
+  const handleProductFieldChange = (event) => {
+    const { name, value, files } = event.target
+    setProductForm((currentForm) => ({ ...currentForm, [name]: files ? files[0] : value }))
+  }
+
+  const handleProductCreate = async (event) => {
+    event.preventDefault()
+    setIsSubmittingProduct(true)
+    setProductFormError('')
+
+    try {
+      const formData = new FormData()
+      Object.entries(productForm).forEach(([key, value]) => {
+        if (key === 'image') {
+          if (value) formData.append('image', value)
+        } else if (key === 'colors' || key === 'sizes') {
+          formData.append(key, JSON.stringify(value.split(',').map((item) => item.trim()).filter(Boolean)))
+        } else {
+          formData.append(key, value)
+        }
+      })
+
+      const response = await fetch('/api/products', { method: 'POST', body: formData })
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.message || 'Product could not be created')
+
+      setInventory((currentInventory) => [result, ...currentInventory])
+      setStats((currentStats) => ({ ...currentStats, products: currentStats.products + 1 }))
+      setProductForm({ category: 'New Arrivals', title: '', price: '', description: '', colors: '', sizes: '', image: null })
+      setIsAddProductOpen(false)
+    } catch (createError) {
+      console.error('Failed to create product:', createError)
+      setProductFormError(createError.message)
+    } finally {
+      setIsSubmittingProduct(false)
+    }
   }
 
   useEffect(() => {
@@ -112,6 +162,10 @@ function DashboardPage() {
         <button
           type="button"
           aria-label="Add product"
+          onClick={() => {
+            setProductFormError('')
+            setIsAddProductOpen(true)
+          }}
           style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 18px', border: 0, borderRadius: '10px', color: '#fff', background: '#111936', fontSize: '14px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 8px 18px rgba(17, 25, 54, 0.18)' }}
         >
           <AddCircleOutlineIcon fontSize="small" />
@@ -119,6 +173,50 @@ function DashboardPage() {
         </button>
       </div>
       <p style={{ marginTop: '12px', color: '#666' }}>Here is a quick overview of your store.</p>
+
+      {isAddProductOpen && (
+        <section style={{ marginTop: '28px', padding: '28px', borderRadius: '18px', background: '#fff', border: '1px solid #e5e7eb', boxShadow: '0 12px 28px rgba(17, 25, 54, 0.06)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
+            <div>
+              <h2 style={{ color: '#111936', fontSize: '22px' }}>Add Product</h2>
+              <p style={{ marginTop: '6px', color: '#667085', fontSize: '14px' }}>Create a new product in MongoDB.</p>
+            </div>
+            <button type="button" onClick={() => setIsAddProductOpen(false)} style={{ border: 0, background: 'transparent', color: '#667085', cursor: 'pointer', fontSize: '14px', fontWeight: 700 }}>Cancel</button>
+          </div>
+
+          <form onSubmit={handleProductCreate} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px', marginTop: '24px' }}>
+            {[
+              ['title', 'Product Title', 'text'],
+              ['price', 'Product Price', 'number'],
+              ['colors', 'Product Colors', 'text'],
+              ['sizes', 'Product Sizes', 'text'],
+            ].map(([name, label, type]) => (
+              <label key={name} style={{ display: 'grid', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
+                {label}
+                <input name={name} type={type} value={productForm[name]} onChange={handleProductFieldChange} required min={type === 'number' ? '0' : undefined} placeholder={name === 'colors' || name === 'sizes' ? 'Separate values with commas' : ''} style={{ width: '100%', padding: '12px 14px', border: '1px solid #d0d5dd', borderRadius: '9px', color: '#111936' }} />
+              </label>
+            ))}
+            <label style={{ display: 'grid', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
+              Category
+              <select name="category" value={productForm.category} onChange={handleProductFieldChange} style={{ width: '100%', padding: '12px 14px', border: '1px solid #d0d5dd', borderRadius: '9px', color: '#111936', background: '#fff' }}>
+                {['New Arrivals', 'Top Selling', 'Women', 'Men', 'Accessories'].map((category) => <option key={category}>{category}</option>)}
+              </select>
+            </label>
+            <label style={{ display: 'grid', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
+              Product Image
+              <input name="image" type="file" accept="image/*" onChange={handleProductFieldChange} required style={{ width: '100%', padding: '9px', border: '1px solid #d0d5dd', borderRadius: '9px', color: '#667085', background: '#fff' }} />
+            </label>
+            <label style={{ display: 'grid', gridColumn: '1 / -1', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
+              Product Description
+              <textarea name="description" value={productForm.description} onChange={handleProductFieldChange} required rows="4" style={{ width: '100%', resize: 'vertical', padding: '12px 14px', border: '1px solid #d0d5dd', borderRadius: '9px', color: '#111936' }} />
+            </label>
+            {productFormError && <p role="alert" style={{ gridColumn: '1 / -1', color: '#b42318' }}>{productFormError}</p>}
+            <button type="submit" disabled={isSubmittingProduct} style={{ gridColumn: '1 / -1', justifySelf: 'start', padding: '12px 20px', border: 0, borderRadius: '9px', color: '#fff', background: isSubmittingProduct ? '#98a2b3' : '#111936', fontWeight: 700, cursor: isSubmittingProduct ? 'wait' : 'pointer' }}>
+              {isSubmittingProduct ? 'Saving product...' : 'Save product'}
+            </button>
+          </form>
+        </section>
+      )}
 
       {statsError && <p role="alert" style={{ marginTop: '24px', color: '#b42318' }}>{statsError}</p>}
 
