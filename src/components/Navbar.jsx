@@ -18,6 +18,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import TranslateIcon from '@mui/icons-material/Translate';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
@@ -91,6 +93,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [notificationAnchorEl, setNotificationAnchorEl] = React.useState(null);
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+    const [isFullscreen, setIsFullscreen] = React.useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
     const isLanguageMenuOpen = Boolean(languageAnchorEl);
@@ -161,6 +164,28 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
 
     const handleNotificationClick = (notificationId) => {
         markAsRead(notificationId);
+    };
+
+    React.useEffect(() => {
+        const handleFullscreenChange = () => {
+            setIsFullscreen(Boolean(document.fullscreenElement));
+        };
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    }, []);
+
+    const handleFullscreenToggle = async () => {
+        try {
+            if (document.fullscreenElement) {
+                await document.exitFullscreen();
+            } else {
+                await document.documentElement.requestFullscreen();
+            }
+        } catch (error) {
+            console.error('Fullscreen request failed:', error);
+        }
+        handleMobileMenuClose();
     };
 
     const menuId = 'primary-search-account-menu';
@@ -329,6 +354,10 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             >
                 <TranslateIcon sx={{ marginRight: 1 }} />
                 <p>{selectedLanguage}</p>
+            </MenuItem>
+            <MenuItem onClick={handleFullscreenToggle}>
+                {isFullscreen ? <FullscreenExitIcon sx={{ marginRight: 1 }} /> : <FullscreenIcon sx={{ marginRight: 1 }} />}
+                <p>{isFullscreen ? text.exitFullscreen : text.fullscreen}</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
@@ -592,6 +621,14 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label={isFullscreen ? 'exit fullscreen' : 'enter fullscreen'}
+                            onClick={handleFullscreenToggle}
+                            color="inherit"
+                        >
+                            {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                        </IconButton>
                         <IconButton
                             size="large"
                             aria-label={text.notifications}
