@@ -7,7 +7,7 @@ export const connectToDatabase = async () => {
     return cachedConnection
   }
 
-  const mongoUri = process.env.MONGO_URI
+  const mongoUri = process.env.MONGO_URI?.trim()
   if (!mongoUri) {
     throw new Error('MONGO_URI is not configured')
   }

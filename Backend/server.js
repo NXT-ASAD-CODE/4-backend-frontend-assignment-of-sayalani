@@ -24,6 +24,7 @@ app.get('/api/health', async (request, response) => {
       status: 'error',
       database: 'disconnected',
       source: 'mongodb',
+      message: error.message,
     })
   }
 })
