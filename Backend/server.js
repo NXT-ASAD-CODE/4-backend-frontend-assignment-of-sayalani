@@ -29,6 +29,22 @@ app.get('/api/health', async (request, response) => {
   }
 })
 
+app.get('/api/dashboard/stats', async (request, response, next) => {
+  try {
+    const connection = await connectToDatabase()
+    const database = connection.connection.db
+    const [products, users, orders] = await Promise.all([
+      database.collection('products').countDocuments(),
+      database.collection('users').countDocuments(),
+      database.collection('orders').countDocuments(),
+    ])
+
+    response.json({ products, users, orders })
+  } catch (error) {
+    next(error)
+  }
+})
+
 app.use('/api/products', async (request, response, next) => {
   try {
     await connectToDatabase()
