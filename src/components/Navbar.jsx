@@ -359,18 +359,6 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                 {isFullscreen ? <FullscreenExitIcon sx={{ marginRight: 1 }} /> : <FullscreenIcon sx={{ marginRight: 1 }} />}
                 <p>{isFullscreen ? text.exitFullscreen : text.fullscreen}</p>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>{text.profile}</p>
-            </MenuItem>
         </Menu>
     );
 
