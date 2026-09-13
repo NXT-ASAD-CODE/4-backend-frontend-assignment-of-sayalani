@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-function CartPage({ cartItems = [], onUpdateQuantity, onRemove, onOrderSubmitted }) {
+function CartPage({ cartItems = [], onUpdateQuantity, onRemove, onOrderSubmitted, customerId }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderMessage, setOrderMessage] = useState('')
   const totalItems = cartItems.reduce((count, item) => count + Number(item.quantity || 1), 0)
@@ -17,7 +17,7 @@ function CartPage({ cartItems = [], onUpdateQuantity, onRemove, onOrderSubmitted
       const response = await fetch('/api/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: cartItems, total: subtotal }),
+        body: JSON.stringify({ items: cartItems, total: subtotal, customerId }),
       })
       const responseText = await response.text()
       let result

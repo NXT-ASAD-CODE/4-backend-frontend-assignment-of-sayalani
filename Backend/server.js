@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import cors from 'cors'
 import express from 'express'
+import mongoose from 'mongoose'
 import { connectToDatabase } from './db.js'
 import productsRouter from './routes/products.js'
 
@@ -88,7 +89,8 @@ app.use('/api/products', async (request, response, next) => {
 app.get(['/api/orders', '/api/order'], async (request, response, next) => {
   try {
     const connection = await connectToDatabase()
-    const orders = await connection.connection.db.collection('orders').find({}).sort({ createdAt: -1 }).toArray()
+    const filter = request.query.customerId ? { customerId: request.query.customerId } : {}
+    const orders = await connection.connection.db.collection('orders').find(filter).sort({ createdAt: -1 }).toArray()
     response.json(orders)
   } catch (error) {
     next(error)
@@ -97,7 +99,7 @@ app.get(['/api/orders', '/api/order'], async (request, response, next) => {
 
 app.post(['/api/orders', '/api/order'], async (request, response, next) => {
   try {
-    const { items, total } = request.body
+    const { items, total, customerId } = request.body
     if (!Array.isArray(items) || items.length === 0) {
       return response.status(400).json({ message: 'At least one cart item is required' })
     }
@@ -105,12 +107,32 @@ app.post(['/api/orders', '/api/order'], async (request, response, next) => {
     const order = {
       items,
       total: Number(total) || 0,
+      customerId: customerId || null,
       status: 'Pending',
       createdAt: new Date(),
     }
     const connection = await connectToDatabase()
     const result = await connection.connection.db.collection('orders').insertOne(order)
     response.status(201).json({ ...order, _id: result.insertedId })
+  } catch (error) {
+    next(error)
+  }
+})
+
+app.put(['/api/orders', '/api/order'], async (request, response, next) => {
+  try {
+    const { orderId, status } = request.body
+    if (!orderId || !['Pending', 'Approved', 'Rejected'].includes(status)) {
+      return response.status(400).json({ message: 'Valid orderId and status are required' })
+    }
+    const connection = await connectToDatabase()
+    const result = await connection.connection.db.collection('orders').findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(orderId) },
+      { $set: { status, updatedAt: new Date() } },
+      { returnDocument: 'after' },
+    )
+    if (!result) return response.status(404).json({ message: 'Order not found' })
+    response.json(result)
   } catch (error) {
     next(error)
   }

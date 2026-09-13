@@ -15,6 +15,7 @@ import CategoryPage from './components/CategoryPage'
 import DashboardPage from './components/DashboardPage'
 import ProductManagementPage from './components/ProductManagementPage'
 import OrdersPage from './components/OrdersPage'
+import MyAccountPage from './components/MyAccountPage'
 import { LanguageProvider } from './context/LanguageContext'
 import { useLanguage } from './context/LanguageContext'
 import { useNotifications } from './context/NotificationContext'
@@ -92,6 +93,13 @@ function HomePage({ cartCount }) {
 
 function App() {
   const [cartItems, setCartItems] = useState(getStoredCart)
+  const [customerId] = useState(() => {
+    const storedId = localStorage.getItem('customerId')
+    if (storedId) return storedId
+    const newId = crypto.randomUUID()
+    localStorage.setItem('customerId', newId)
+    return newId
+  })
   const { addNotification } = useNotifications()
 
   useEffect(() => {
@@ -188,6 +196,7 @@ function App() {
               onUpdateQuantity={updateCartQuantity}
               onRemove={removeFromCart}
               onOrderSubmitted={() => setCartItems([])}
+              customerId={customerId}
             />
           </PageLayout>
         }
@@ -224,6 +233,7 @@ function App() {
           </PageLayout>
         }
       />
+      <Route path="/account" element={<PageLayout cartCount={cartCount}><MyAccountPage /></PageLayout>} />
       </Routes>
     </LanguageProvider>
   )

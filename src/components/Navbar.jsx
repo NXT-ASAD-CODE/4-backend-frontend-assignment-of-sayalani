@@ -208,7 +208,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>{text.profile}</MenuItem>
-            <MenuItem onClick={handleMenuClose}>{text.myAccount}</MenuItem>
+            <MenuItem onClick={() => { navigate('/account'); handleMenuClose(); }}>{text.myAccount}</MenuItem>
         </Menu>
     );
 

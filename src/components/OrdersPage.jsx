@@ -6,6 +6,21 @@ function OrdersPage() {
   const [orders, setOrders] = useState([])
   const [error, setError] = useState('')
 
+  const updateStatus = async (orderId, status) => {
+    try {
+      const response = await fetch('/api/order', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId, status }),
+      })
+      const updatedOrder = await response.json()
+      if (!response.ok) throw new Error(updatedOrder.message || 'Could not update order')
+      setOrders((currentOrders) => currentOrders.map((order) => String(order._id) === String(orderId) ? updatedOrder : order))
+    } catch (statusError) {
+      setError(statusError.message)
+    }
+  }
+
   useEffect(() => {
     if (sessionStorage.getItem('adminAuthenticated') !== 'true') {
       navigate('/dashboard', { replace: true })
@@ -32,7 +47,7 @@ function OrdersPage() {
         <table style={{ width: '100%', minWidth: '650px', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-              {['Order', 'Items', 'Total', 'Status', 'Date'].map((heading) => <th key={heading} style={{ padding: '14px 12px', color: '#667085', fontSize: '12px', textTransform: 'uppercase' }}>{heading}</th>)}
+              {['Order', 'Items', 'Total', 'Status', 'Date', 'Actions'].map((heading) => <th key={heading} style={{ padding: '14px 12px', color: '#667085', fontSize: '12px', textTransform: 'uppercase' }}>{heading}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -43,6 +58,7 @@ function OrdersPage() {
                 <td style={{ padding: '16px 12px', color: '#111936', fontWeight: 700 }}>${Number(order.total || 0).toFixed(2)}</td>
                 <td style={{ padding: '16px 12px' }}><span style={{ padding: '5px 10px', borderRadius: '999px', color: '#92400e', background: '#fef3c7', fontSize: '12px', fontWeight: 700 }}>{order.status || 'Pending'}</span></td>
                 <td style={{ padding: '16px 12px', color: '#667085' }}>{new Date(order.createdAt).toLocaleDateString()}</td>
+                <td style={{ padding: '16px 12px', whiteSpace: 'nowrap' }}>{['Pending', 'Approved', 'Rejected'].map((status) => <button key={status} type="button" onClick={() => updateStatus(order._id, status)} style={{ marginRight: '6px', padding: '6px 8px', border: 0, borderRadius: '6px', color: '#fff', background: status === 'Approved' ? '#047857' : status === 'Rejected' ? '#b42318' : '#b7791f', fontSize: '11px', cursor: 'pointer' }}>{status}</button>)}</td>
               </tr>
             ))}
           </tbody>
