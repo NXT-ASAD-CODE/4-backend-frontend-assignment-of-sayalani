@@ -60,16 +60,15 @@ function DashboardPage() {
     setProductFormError('')
 
     try {
-      const formData = new FormData()
-      Object.entries(productForm).forEach(([key, value]) => {
-        if (key === 'colors' || key === 'sizes') {
-          formData.append(key, JSON.stringify(value.split(',').map((item) => item.trim()).filter(Boolean)))
-        } else {
-          formData.append(key, value)
-        }
+      const response = await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...productForm,
+          colors: productForm.colors.split(',').map((item) => item.trim()).filter(Boolean),
+          sizes: productForm.sizes.split(',').map((item) => item.trim()).filter(Boolean),
+        }),
       })
-
-      const response = await fetch('/api/products', { method: 'POST', body: formData })
       const responseText = await response.text()
       let result
       try {

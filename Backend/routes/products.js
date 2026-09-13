@@ -22,7 +22,7 @@ router.get('/', async (request, response, next) => {
   }
 })
 
-router.post('/', upload.single('image'), async (request, response, next) => {
+const createProduct = async (request, response, next) => {
   try {
     const { category, title, price, description, colors, sizes, imageUrl } = request.body
     const image = request.file
@@ -34,6 +34,8 @@ router.post('/', upload.single('image'), async (request, response, next) => {
     }
 
     const parseList = (value) => {
+      if (Array.isArray(value)) return value
+
       try {
         const parsed = JSON.parse(value)
         return Array.isArray(parsed) ? parsed : []
@@ -59,6 +61,17 @@ router.post('/', upload.single('image'), async (request, response, next) => {
   } catch (error) {
     next(error)
   }
+}
+
+router.post('/', (request, response, next) => {
+  if (request.is('multipart/form-data')) {
+    return upload.single('image')(request, response, (error) => {
+      if (error) return next(error)
+      createProduct(request, response, next)
+    })
+  }
+
+  createProduct(request, response, next)
 })
 
 router.get('/:id', async (request, response, next) => {
