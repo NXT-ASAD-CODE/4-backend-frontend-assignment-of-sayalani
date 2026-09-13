@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
 
-const productSchema = new mongoose.Schema({}, {
+const productSchema = new mongoose.Schema({
+  id: { type: String, index: true },
+}, {
   strict: false,
   timestamps: true,
 })

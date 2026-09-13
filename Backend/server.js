@@ -86,7 +86,11 @@ app.use('/api/products', async (request, response, next) => {
 
 app.use((error, request, response, next) => {
   console.error(error)
-  response.status(500).json({ message: 'Internal server error' })
+  if (error.code === 'LIMIT_FILE_SIZE') {
+    return response.status(400).json({ message: 'Image must be smaller than 5 MB' })
+  }
+
+  response.status(500).json({ message: error.message || 'Internal server error' })
 })
 
 if (!process.env.VERCEL) {

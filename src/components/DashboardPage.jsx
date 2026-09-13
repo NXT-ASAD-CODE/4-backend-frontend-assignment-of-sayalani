@@ -72,7 +72,13 @@ function DashboardPage() {
       })
 
       const response = await fetch('/api/products', { method: 'POST', body: formData })
-      const result = await response.json()
+      const responseText = await response.text()
+      let result
+      try {
+        result = JSON.parse(responseText)
+      } catch (parseError) {
+        throw new Error(responseText || 'Product could not be created')
+      }
       if (!response.ok) throw new Error(result.message || 'Product could not be created')
 
       setInventory((currentInventory) => [result, ...currentInventory])
