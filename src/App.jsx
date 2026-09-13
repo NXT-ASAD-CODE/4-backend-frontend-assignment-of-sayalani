@@ -14,6 +14,7 @@ import CartPage from './components/CartPage'
 import CategoryPage from './components/CategoryPage'
 import DashboardPage from './components/DashboardPage'
 import ProductManagementPage from './components/ProductManagementPage'
+import OrdersPage from './components/OrdersPage'
 import { LanguageProvider } from './context/LanguageContext'
 import { useLanguage } from './context/LanguageContext'
 import { useNotifications } from './context/NotificationContext'
@@ -186,6 +187,7 @@ function App() {
               cartItems={cartItems}
               onUpdateQuantity={updateCartQuantity}
               onRemove={removeFromCart}
+              onOrderSubmitted={() => setCartItems([])}
             />
           </PageLayout>
         }
@@ -211,6 +213,14 @@ function App() {
         element={
           <PageLayout cartCount={cartCount}>
             <ProductManagementPage />
+          </PageLayout>
+        }
+      />
+      <Route
+        path="/dashboard/orders"
+        element={
+          <PageLayout cartCount={cartCount}>
+            <OrdersPage />
           </PageLayout>
         }
       />

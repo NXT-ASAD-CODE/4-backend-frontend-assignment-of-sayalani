@@ -85,6 +85,37 @@ app.use('/api/products', async (request, response, next) => {
   }
 }, productsRouter)
 
+app.get(['/api/orders', '/api/order'], async (request, response, next) => {
+  try {
+    const connection = await connectToDatabase()
+    const orders = await connection.connection.db.collection('orders').find({}).sort({ createdAt: -1 }).toArray()
+    response.json(orders)
+  } catch (error) {
+    next(error)
+  }
+})
+
+app.post(['/api/orders', '/api/order'], async (request, response, next) => {
+  try {
+    const { items, total } = request.body
+    if (!Array.isArray(items) || items.length === 0) {
+      return response.status(400).json({ message: 'At least one cart item is required' })
+    }
+
+    const order = {
+      items,
+      total: Number(total) || 0,
+      status: 'Pending',
+      createdAt: new Date(),
+    }
+    const connection = await connectToDatabase()
+    const result = await connection.connection.db.collection('orders').insertOne(order)
+    response.status(201).json({ ...order, _id: result.insertedId })
+  } catch (error) {
+    next(error)
+  }
+})
+
 app.use((error, request, response, next) => {
   console.error(error)
   if (error.code === 'LIMIT_FILE_SIZE') {

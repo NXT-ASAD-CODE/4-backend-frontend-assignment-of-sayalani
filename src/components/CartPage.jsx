@@ -1,12 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-function CartPage({ cartItems = [], onUpdateQuantity, onRemove }) {
+function CartPage({ cartItems = [], onUpdateQuantity, onRemove, onOrderSubmitted }) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [orderMessage, setOrderMessage] = useState('')
   const totalItems = cartItems.reduce((count, item) => count + Number(item.quantity || 1), 0)
   const subtotal = cartItems.reduce(
     (sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1),
     0
   )
+
+  const handleSubmitOrder = async () => {
+    setIsSubmitting(true)
+    setOrderMessage('')
+    try {
+      const response = await fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: cartItems, total: subtotal }),
+      })
+      const responseText = await response.text()
+      let result
+      try {
+        result = JSON.parse(responseText)
+      } catch (parseError) {
+        throw new Error('Orders API is unavailable. Redeploy the latest backend.')
+      }
+      if (!response.ok) throw new Error(result.message || 'Order could not be submitted')
+      onOrderSubmitted?.()
+      setOrderMessage('Order submitted successfully.')
+    } catch (error) {
+      setOrderMessage(error.message)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   if (!cartItems.length) {
     return (
@@ -119,6 +147,10 @@ function CartPage({ cartItems = [], onUpdateQuantity, onRemove }) {
           <Link to="/" className="back-home-btn" style={{ marginTop: '18px', display: 'inline-block' }}>
             Continue Shopping
           </Link>
+          <button type="button" onClick={handleSubmitOrder} disabled={isSubmitting} style={{ marginTop: '18px', padding: '12px 22px', border: 0, borderRadius: '8px', color: '#fff', background: isSubmitting ? '#98a2b3' : '#111936', fontWeight: 700, cursor: isSubmitting ? 'wait' : 'pointer' }}>
+            {isSubmitting ? 'Submitting...' : 'Submit Order'}
+          </button>
+          {orderMessage && <p role="status" style={{ width: '100%', marginTop: '12px', color: orderMessage.includes('successfully') ? '#047857' : '#b42318' }}>{orderMessage}</p>}
         </div>
       </div>
     </div>

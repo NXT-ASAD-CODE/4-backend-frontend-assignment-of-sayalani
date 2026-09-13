@@ -396,6 +396,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                                 onClick={() => {
                                     if (option === 'Product') handleDrawerNavigate('/dashboard/products');
                                     else if (option === 'Dashboard') handleDrawerNavigate('/dashboard');
+                                    else if (option === 'Orders') handleDrawerNavigate('/dashboard/orders');
                                     else handleDrawerToggle(false)();
                                 }}
                                 sx={{ color: '#BDC8F0' }}
