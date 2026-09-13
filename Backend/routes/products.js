@@ -74,6 +74,39 @@ router.post('/', (request, response, next) => {
   createProduct(request, response, next)
 })
 
+router.put('/:id', async (request, response, next) => {
+  try {
+    const { id } = request.params
+    const updates = { ...request.body }
+    if (typeof updates.price !== 'undefined') updates.price = Number(updates.price)
+    if (typeof updates.colors === 'string') updates.colors = updates.colors.split(',').map((item) => item.trim()).filter(Boolean)
+    if (typeof updates.sizes === 'string') updates.sizes = updates.sizes.split(',').map((item) => item.trim()).filter(Boolean)
+
+    const product = mongoose.Types.ObjectId.isValid(id)
+      ? await Product.findByIdAndUpdate(id, updates, { new: true, runValidators: true }).lean()
+      : await Product.findOneAndUpdate({ id }, updates, { new: true, runValidators: true }).lean()
+
+    if (!product) return response.status(404).json({ message: 'Product not found' })
+    response.json(product)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id', async (request, response, next) => {
+  try {
+    const { id } = request.params
+    const result = mongoose.Types.ObjectId.isValid(id)
+      ? await Product.findByIdAndDelete(id)
+      : await Product.findOneAndDelete({ id })
+
+    if (!result) return response.status(404).json({ message: 'Product not found' })
+    response.json({ message: 'Product deleted' })
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:id', async (request, response, next) => {
   try {
     const { id } = request.params

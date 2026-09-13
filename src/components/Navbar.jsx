@@ -99,7 +99,7 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
     const isLanguageMenuOpen = Boolean(languageAnchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const isNotificationMenuOpen = Boolean(notificationAnchorEl);
-    const isDashboardPage = location.pathname === '/dashboard';
+    const isDashboardPage = location.pathname.startsWith('/dashboard');
     const unreadNotifications = notifications.filter((notification) => !notification.read);
     const sortedNotifications = [...notifications].sort(
         (first, second) => Number(first.read) - Number(second.read)
@@ -405,7 +405,11 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         {['Dashboard', 'Product', 'Orders'].map((option) => (
                             <ListItemButton
                                 key={option}
-                                onClick={handleDrawerToggle(false)}
+                                onClick={() => {
+                                    if (option === 'Product') navigate('/dashboard/products');
+                                    else if (option === 'Dashboard') navigate('/dashboard');
+                                    handleDrawerToggle(false)();
+                                }}
                                 sx={{ color: '#BDC8F0' }}
                             >
                                 {option === 'Dashboard' && (

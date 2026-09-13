@@ -13,6 +13,7 @@ import ProductPage from './components/ProductPage'
 import CartPage from './components/CartPage'
 import CategoryPage from './components/CategoryPage'
 import DashboardPage from './components/DashboardPage'
+import ProductManagementPage from './components/ProductManagementPage'
 import { LanguageProvider } from './context/LanguageContext'
 import { useLanguage } from './context/LanguageContext'
 import { useNotifications } from './context/NotificationContext'
@@ -202,6 +203,14 @@ function App() {
         element={
           <PageLayout cartCount={cartCount}>
             <DashboardPage />
+          </PageLayout>
+        }
+      />
+      <Route
+        path="/dashboard/products"
+        element={
+          <PageLayout cartCount={cartCount}>
+            <ProductManagementPage />
           </PageLayout>
         }
       />
