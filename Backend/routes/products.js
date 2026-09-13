@@ -24,9 +24,13 @@ router.get('/', async (request, response, next) => {
 
 router.post('/', upload.single('image'), async (request, response, next) => {
   try {
-    const { category, title, price, description, colors, sizes } = request.body
-    if (!category || !title || !price || !description || !request.file) {
-      return response.status(400).json({ message: 'Category, title, price, description, and image are required' })
+    const { category, title, price, description, colors, sizes, imageUrl } = request.body
+    const image = request.file
+      ? `data:${request.file.mimetype};base64,${request.file.buffer.toString('base64')}`
+      : String(imageUrl || '').trim()
+
+    if (!category || !title || !price || !description || !image) {
+      return response.status(400).json({ message: 'Category, title, price, description, and image link are required' })
     }
 
     const parseList = (value) => {
@@ -48,7 +52,7 @@ router.post('/', upload.single('image'), async (request, response, next) => {
       colors: parseList(colors),
       sizes: parseList(sizes),
       inStock: true,
-      image: `data:${request.file.mimetype};base64,${request.file.buffer.toString('base64')}`,
+      image,
     })
 
     response.status(201).json(product)

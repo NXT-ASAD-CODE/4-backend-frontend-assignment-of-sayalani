@@ -34,7 +34,7 @@ function DashboardPage() {
     description: '',
     colors: '',
     sizes: '',
-    image: null,
+    imageUrl: '',
   })
 
   const handleSubmit = (event) => {
@@ -62,9 +62,7 @@ function DashboardPage() {
     try {
       const formData = new FormData()
       Object.entries(productForm).forEach(([key, value]) => {
-        if (key === 'image') {
-          if (value) formData.append('image', value)
-        } else if (key === 'colors' || key === 'sizes') {
+        if (key === 'colors' || key === 'sizes') {
           formData.append(key, JSON.stringify(value.split(',').map((item) => item.trim()).filter(Boolean)))
         } else {
           formData.append(key, value)
@@ -83,7 +81,7 @@ function DashboardPage() {
 
       setInventory((currentInventory) => [result, ...currentInventory])
       setStats((currentStats) => ({ ...currentStats, products: currentStats.products + 1 }))
-      setProductForm({ category: 'New Arrivals', title: '', price: '', description: '', colors: '', sizes: '', image: null })
+      setProductForm({ category: 'New Arrivals', title: '', price: '', description: '', colors: '', sizes: '', imageUrl: '' })
       setIsAddProductOpen(false)
     } catch (createError) {
       console.error('Failed to create product:', createError)
@@ -209,8 +207,8 @@ function DashboardPage() {
               </select>
             </label>
             <label style={{ display: 'grid', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
-              Product Image
-              <input name="image" type="file" accept="image/*" onChange={handleProductFieldChange} required style={{ width: '100%', padding: '9px', border: '1px solid #344054', borderRadius: '9px', color: '#fff', background: '#111936' }} />
+              Product Image Link
+              <input name="imageUrl" type="url" value={productForm.imageUrl} onChange={handleProductFieldChange} required placeholder="https://example.com/product-image.jpg" style={{ width: '100%', padding: '12px 14px', border: '1px solid #344054', borderRadius: '9px', color: '#fff', background: '#111936' }} />
             </label>
             <label style={{ display: 'grid', gridColumn: '1 / -1', gap: '8px', color: '#344054', fontSize: '13px', fontWeight: 700 }}>
               Product Description
