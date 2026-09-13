@@ -16,7 +16,7 @@ const SALES_OVERVIEW = [
 ]
 
 function DashboardPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(() => localStorage.getItem('adminAuthenticated') === 'true')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -42,6 +42,7 @@ function DashboardPage() {
 
     if (email.trim().toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       setIsAuthenticated(true)
+      localStorage.setItem('adminAuthenticated', 'true')
       setError('')
       return
     }

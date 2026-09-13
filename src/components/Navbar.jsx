@@ -406,9 +406,9 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                             <ListItemButton
                                 key={option}
                                 onClick={() => {
-                                    if (option === 'Product') navigate('/dashboard/products');
-                                    else if (option === 'Dashboard') navigate('/dashboard');
-                                    handleDrawerToggle(false)();
+                                    if (option === 'Product') handleDrawerNavigate('/dashboard/products');
+                                    else if (option === 'Dashboard') handleDrawerNavigate('/dashboard');
+                                    else handleDrawerToggle(false)();
                                 }}
                                 sx={{ color: '#BDC8F0' }}
                             >

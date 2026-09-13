@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const categories = ['New Arrivals', 'Top Selling', 'Women', 'Men', 'Accessories']
 
 const getProductKey = (product) => product._id || product.id
 
 function ProductManagementPage() {
+  const navigate = useNavigate()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [products, setProducts] = useState([])
   const [editingId, setEditingId] = useState(null)
   const [editForm, setEditForm] = useState(null)
@@ -24,8 +27,14 @@ function ProductManagementPage() {
   }
 
   useEffect(() => {
+    if (localStorage.getItem('adminAuthenticated') !== 'true') {
+      navigate('/dashboard', { replace: true })
+      return
+    }
+
+    setIsAuthenticated(true)
     loadProducts()
-  }, [])
+  }, [navigate])
 
   const startEditing = (product) => {
     setEditingId(getProductKey(product))
@@ -94,6 +103,8 @@ function ProductManagementPage() {
       setError(deleteError.message)
     }
   }
+
+  if (!isAuthenticated) return null
 
   return (
     <main style={{ padding: '56px 6vw', minHeight: '60vh', background: '#f7f8fc' }}>
