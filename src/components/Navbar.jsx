@@ -496,6 +496,12 @@ export default function PrimarySearchAppBar({ cartCount = 0 }) {
                         <ListItemButton onClick={() => handleDrawerNavigate('/cart')} sx={{ color: '#E3F2F7' }}>
                             <ListItemText primary={text.cart} />
                         </ListItemButton>
+                        <ListItemButton onClick={() => handleDrawerNavigate('/dashboard')} sx={{ color: '#E3F2F7' }}>
+                            <ListItemIcon sx={{ minWidth: 40, color: '#E3F2F7' }}>
+                                <SpeedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Admin Panel" />
+                        </ListItemButton>
                     </>
                 )}
             </List>

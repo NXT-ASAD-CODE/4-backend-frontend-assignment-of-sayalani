@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined'
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'
@@ -16,7 +17,8 @@ const SALES_OVERVIEW = [
 ]
 
 function DashboardPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => localStorage.getItem('adminAuthenticated') === 'true')
+  const location = useLocation()
+  const [isAuthenticated, setIsAuthenticated] = useState(() => sessionStorage.getItem('adminAuthenticated') === 'true')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -42,7 +44,8 @@ function DashboardPage() {
 
     if (email.trim().toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       setIsAuthenticated(true)
-      localStorage.setItem('adminAuthenticated', 'true')
+      sessionStorage.setItem('adminAuthenticated', 'true')
+      localStorage.removeItem('adminAuthenticated')
       setError('')
       return
     }
@@ -92,6 +95,8 @@ function DashboardPage() {
   }
 
   useEffect(() => {
+    if (!isAuthenticated) return
+
     const loadDashboardData = async () => {
       const [statsResult, productsResult] = await Promise.allSettled([
         fetch('/api/dashboard/stats'),
@@ -114,7 +119,13 @@ function DashboardPage() {
     }
 
     loadDashboardData()
-  }, [])
+  }, [isAuthenticated])
+
+  useEffect(() => {
+    if (new URLSearchParams(location.search).get('addProduct') === 'true') {
+      setIsAddProductOpen(true)
+    }
+  }, [location.search])
 
   if (!isAuthenticated) {
     return (

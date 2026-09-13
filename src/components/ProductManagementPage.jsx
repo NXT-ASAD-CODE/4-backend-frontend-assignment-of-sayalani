@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutlined'
 
 const categories = ['New Arrivals', 'Top Selling', 'Women', 'Men', 'Accessories']
 
@@ -27,7 +28,7 @@ function ProductManagementPage() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('adminAuthenticated') !== 'true') {
+    if (sessionStorage.getItem('adminAuthenticated') !== 'true') {
       navigate('/dashboard', { replace: true })
       return
     }
@@ -108,7 +109,17 @@ function ProductManagementPage() {
 
   return (
     <main style={{ padding: '56px 6vw', minHeight: '60vh', background: '#f7f8fc' }}>
-      <h1 style={{ color: '#111936', fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>Products</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+        <h1 style={{ color: '#111936', fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>Products</h1>
+        <button
+          type="button"
+          onClick={() => navigate('/dashboard?addProduct=true')}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 18px', border: 0, borderRadius: '10px', color: '#fff', background: '#111936', fontSize: '14px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 8px 18px rgba(17, 25, 54, 0.18)' }}
+        >
+          <AddCircleOutlineIcon fontSize="small" />
+          Add product
+        </button>
+      </div>
       <p style={{ marginTop: '10px', color: '#667085' }}>Edit, remove, or update product stock in MongoDB.</p>
       {error && <p role="alert" style={{ marginTop: '20px', color: '#b42318' }}>{error}</p>}
       {isLoading ? <p style={{ marginTop: '28px', color: '#667085' }}>Loading products...</p> : (
