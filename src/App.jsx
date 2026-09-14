@@ -36,16 +36,19 @@ function HomePage({ cartCount }) {
   const { text } = useLanguage()
   const [newArrivals, setNewArrivals] = useState([])
   const [topSelling, setTopSelling] = useState([])
+  const [accessories, setAccessories] = useState([])
   const [productsError, setProductsError] = useState('')
 
   useEffect(() => {
     Promise.all([
       getProducts('New Arrivals'),
-      getProducts('Top Selling')
+      getProducts('Top Selling'),
+      getProducts('Accessories')
     ])
-      .then(([newItems, topItems]) => {
+      .then(([newItems, topItems, accessoryItems]) => {
         setNewArrivals(newItems)
         setTopSelling(topItems)
+        setAccessories(accessoryItems)
       })
       .catch((error) => {
         console.error('Failed to load products from MongoDB:', error)
@@ -75,6 +78,20 @@ function HomePage({ cartCount }) {
       <Heading title={text.topSelling} id="top-selling" />
       <div className="flex">
         {topSelling.map((product) => (
+          <DynamicProducts
+            key={product.id}
+            id={product.id}
+            src={product.image}
+            cardtext={product.name}
+            money={`RS : $${product.price}`}
+          />
+        ))}
+      </div>
+      <DynamicButton btntext={"View All"} />
+      <HorizontalLine />
+      <Heading title={text.accessories || 'Accessories'} id="accessories" />
+      <div className="flex">
+        {accessories.map((product) => (
           <DynamicProducts
             key={product.id}
             id={product.id}
